@@ -19,8 +19,7 @@ namespace dCC_GroupCapstone.Models
         public string Description { get; set; }
 
         public double Price { get; set; }
-
-        public List<Interest> AssociatedInterests { get; set; }
+        public ICollection<Vacation> Vacations { get; set; }
 
     }
 }
