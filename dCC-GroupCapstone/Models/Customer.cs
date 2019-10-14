@@ -14,13 +14,8 @@ namespace dCC_GroupCapstone.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        [ForeignKey("Interest")]
-        public List<Interest> Interests { get; set; }
-        public Interest Interest { get; set; }
-
-        [ForeignKey("Vacation")]
-        public List<Vacation> SavedVacations { get; set; }
-        public Vacation Vacation { get; set; }
+        public ICollection<Interest> Interests { get; set; }
+        public ICollection<Vacation> SavedVacations { get; set; }
 
         [ForeignKey("User")]
         public string UserId { get; set; }

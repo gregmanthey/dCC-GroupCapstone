@@ -24,8 +24,6 @@ namespace dCC_GroupCapstone.Models
         public int SavedHotel { get; set; }
         public Hotel Hotel { get; set; }
 
-        [ForeignKey("Activity")]
         public List<Activity> SavedActivities { get; set; }
-        public Activity Activity { get; set; }
     }
 }
