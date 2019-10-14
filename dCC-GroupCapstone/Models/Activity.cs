@@ -20,9 +20,7 @@ namespace dCC_GroupCapstone.Models
 
         public double Price { get; set; }
 
-        [ForeignKey("Interest")]
         public List<Interest> AssociatedInterests { get; set; }
-        public Interest Interest { get; set; }
 
     }
 }
