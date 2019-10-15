@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dCC_GroupCapstone.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,34 +7,42 @@ using System.Web.Mvc;
 
 namespace dCC_GroupCapstone.Controllers
 {
-    public class Customer : Controller
+    public class CustomerController : Controller
     {
+        ApplicationDbContext context;
+        public CustomerController()
+        {
+            context = new ApplicationDbContext();
+        }
         // GET: Customer
         public ActionResult Index()
         {
-            return View();
+            return View(context.Customers.ToList());
         }
 
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Customer customerDetails = context.Customers.Where(c => c.Id == id).SingleOrDefault();
+            return View(customerDetails);
         }
 
         // GET: Customer/Create
         public ActionResult Create()
         {
-            return View();
+            Customer createCustomer = new Customer();
+            return View(createCustomer);
         }
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Customer Customers)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                context.Customers.Add(Customers);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
