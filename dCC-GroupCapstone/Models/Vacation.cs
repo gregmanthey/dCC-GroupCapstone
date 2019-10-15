@@ -11,11 +11,7 @@ namespace dCC_GroupCapstone.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [ForeignKey("User")]
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
-
+        
         public bool IsPrivate { get; set; }
         public string LocationQueried { get; set; }
         public double Cost { get; set; }

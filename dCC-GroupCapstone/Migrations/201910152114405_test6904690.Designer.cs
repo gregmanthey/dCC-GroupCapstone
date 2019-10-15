@@ -7,13 +7,13 @@ namespace dCC_GroupCapstone.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class test : IMigrationMetadata
+    public sealed partial class test6904690 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(test));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(test6904690));
         
         string IMigrationMetadata.Id
         {
-            get { return "201910151552469_test"; }
+            get { return "201910152114405_test6904690"; }
         }
         
         string IMigrationMetadata.Source

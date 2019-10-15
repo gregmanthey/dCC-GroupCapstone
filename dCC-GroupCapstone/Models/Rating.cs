@@ -17,7 +17,7 @@ namespace dCC_GroupCapstone.Models
         public int VacationId { get; set; }
         public double RatingValue { get; set; }
         [ForeignKey("CustomerId")]
-        public virtual ApplicationUser User { get; set; }
+        public virtual Customer Customer { get; set; }
         [ForeignKey("VacationId")]
         public virtual Vacation Vacation { get; set; }
     }
