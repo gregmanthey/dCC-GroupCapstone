@@ -81,7 +81,8 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Customer/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Customer deleteCustomer = context.Customers.Where(d => d.Id == id).SingleOrDefault();
+            return View(deleteCustomer);
         }
 
         // POST: Customer/Delete/5
@@ -91,7 +92,9 @@ namespace dCC_GroupCapstone.Controllers
             try
             {
                 // TODO: Add delete logic here
-
+                Customer customer = context.Customers.Find(id);
+                context.Customers.Remove(customer);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
