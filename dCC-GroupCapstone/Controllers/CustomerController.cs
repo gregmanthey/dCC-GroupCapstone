@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace dCC_GroupCapstone.Controllers
 {
-    public class Customer : Controller
+    public class CustomerController : Controller
     {
         // GET: Customer
         public ActionResult Index()
