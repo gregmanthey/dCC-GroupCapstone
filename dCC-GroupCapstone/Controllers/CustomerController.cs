@@ -54,17 +54,22 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Customer/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Customer editCustomer = context.Customers.Where(e => e.Id == id).SingleOrDefault();
+            return View(editCustomer);
         }
 
         // POST: Customer/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Customer customer)
         {
             try
             {
                 // TODO: Add update logic here
-
+                var editCustomer = context.Customers.Find(id);
+                editCustomer.FirstName = customer.FirstName;
+                editCustomer.LastName = customer.LastName;
+                // Circle back to Interest and SavedVacations...
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
