@@ -11,12 +11,12 @@ namespace dCC_GroupCapstone.Models
     {
         [Key]
         [Column(Order = 0)]
-        public string UserId { get; set; }
+        public string CustomerId { get; set; }
         [Key]
         [Column(Order = 1)]
         public int VacationId { get; set; }
         public double RatingValue { get; set; }
-        [ForeignKey("UserId")]
+        [ForeignKey("CustomerId")]
         public virtual ApplicationUser User { get; set; }
         [ForeignKey("VacationId")]
         public virtual Vacation Vacation { get; set; }

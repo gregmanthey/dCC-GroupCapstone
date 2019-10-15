@@ -81,17 +81,19 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Customer/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Customer customer = context.Customers.Where(c => c.Id == id).SingleOrDefault();
+            return View(customer);
         }
 
         // POST: Customer/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Customer customer)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                context.Customers.Remove(customer);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
