@@ -26,16 +26,17 @@ namespace dCC_GroupCapstone.Controllers
         // Is this even necessary to get an individual Rating Details? Maybe for viewing other reviews from the same user?
         public ActionResult Details(Vacation vacation)
         {
-            var ratings = context.Ratings.Where(r => r.VacationId == vacation.Id);
+            var ratings = context.Ratings.Where(r => r.VacationId == vacation.Id)
+                .Select(r => r.RatingValue).Average();
             // should the average rating be calculated here?
-            int counter = 0;
-            int ratingsTotal = 0;
-            foreach (Rating rating in ratings)
-            {
-                counter++;
-                ratingsTotal += ratingsTotal;
-            }
-            double ratingsAverage = ratingsTotal / counter;
+            //int counter = 0;
+            //int ratingsTotal = 0;
+            //foreach (Rating rating in ratings)
+            //{
+            //    counter++;
+            //    ratingsTotal += ratingsTotal;
+            //}
+            //double ratingsAverage = ratingsTotal / counter;
             return View();
         }
 
@@ -111,5 +112,7 @@ namespace dCC_GroupCapstone.Controllers
                 return View();
             }
         }
+        // Methods
+        // AverageRating
     }
 }

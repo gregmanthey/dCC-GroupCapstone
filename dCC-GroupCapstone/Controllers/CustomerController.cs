@@ -87,12 +87,11 @@ namespace dCC_GroupCapstone.Controllers
 
         // POST: Customer/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Customer customer)
         {
             try
             {
                 // TODO: Add delete logic here
-                Customer customer = context.Customers.Find(id);
                 context.Customers.Remove(customer);
                 context.SaveChanges();
                 return RedirectToAction("Index");

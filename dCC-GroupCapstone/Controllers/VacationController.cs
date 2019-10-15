@@ -95,5 +95,11 @@ namespace dCC_GroupCapstone.Controllers
                 return View();
             }
         }
+
+        // TODO
+        // Methods
+        // API Call - get location
+        // Filter - lodging/other
+        // Filter - include interests/don't
     }
 }

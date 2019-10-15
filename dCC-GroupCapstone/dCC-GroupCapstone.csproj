@@ -173,12 +173,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RatingsController.cs" />
+    <Compile Include="Controllers\VacationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201910151305418_add-migration shutUp.cs" />
     <Compile Include="Migrations\201910151305418_add-migration shutUp.Designer.cs">
       <DependentUpon>201910151305418_add-migration shutUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910151552469_test.cs" />
+    <Compile Include="Migrations\201910151552469_test.Designer.cs">
+      <DependentUpon>201910151552469_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -267,7 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -285,6 +290,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910151305418_add-migration shutUp.resx">
       <DependentUpon>201910151305418_add-migration shutUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910151552469_test.resx">
+      <DependentUpon>201910151552469_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
