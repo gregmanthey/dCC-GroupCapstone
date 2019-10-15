@@ -25,6 +25,7 @@ namespace dCC_GroupCapstone.Models
         public DbSet<Vacation> Vacations { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
