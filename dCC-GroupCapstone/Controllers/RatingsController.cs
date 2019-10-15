@@ -43,9 +43,12 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Ratings/Create
         // Creating from some icon/button on GUI.
         // Five icons, all set to value forms?
-        public ActionResult Create(Vacation vacation, Customer customer)
+        public ActionResult Create(Vacation vacation, Customer customer, int value)
         {
             Rating rating = new Rating();
+            rating.CustomerId = customer.Id;
+            rating.VacationId = vacation.Id;
+            rating.RatingValue = value;
             return View(rating);
         }
 

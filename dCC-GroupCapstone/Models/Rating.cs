@@ -11,7 +11,7 @@ namespace dCC_GroupCapstone.Models
     {
         [Key]
         [Column(Order = 0)]
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         [Key]
         [Column(Order = 1)]
         public int VacationId { get; set; }
