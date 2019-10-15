@@ -7,13 +7,13 @@ namespace dCC_GroupCapstone.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class addmigrationshutUp : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addmigrationshutUp));
         
         string IMigrationMetadata.Id
         {
-            get { return "201910141635486_init"; }
+            get { return "201910151305418_add-migration shutUp"; }
         }
         
         string IMigrationMetadata.Source
