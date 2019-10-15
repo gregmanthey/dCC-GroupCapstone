@@ -30,17 +30,19 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Customer/Create
         public ActionResult Create()
         {
-            return View();
+            Customer createCustomer = new Customer();
+            return View(createCustomer);
         }
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Customer Customers)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                context.Customers.Add(Customers);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
