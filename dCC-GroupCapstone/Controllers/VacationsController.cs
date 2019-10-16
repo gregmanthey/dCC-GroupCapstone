@@ -137,6 +137,16 @@ namespace dCC_GroupCapstone.Controllers
             }
         }
 
+        public ActionResult CopyToNewUser(Vacation vacation)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = context.Customers.SingleOrDefault(u => u.UserId == currentUserId);
+            currentUser.SavedVacations.Add(vacation);
+            context.SaveChanges();
+            return RedirectToAction("Index", "Vacations");
+            
+        }
+
         // TODO
         // Methods
         // API Call - get location

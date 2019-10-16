@@ -24,7 +24,7 @@ namespace dCC_GroupCapstone.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        VacationName = c.String(),
                         IsPrivate = c.Boolean(nullable: false),
                         LocationQueried = c.String(),
                         Cost = c.Double(nullable: false),

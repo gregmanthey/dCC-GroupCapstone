@@ -1,4 +1,5 @@
 ﻿using dCC_GroupCapstone.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,12 +37,22 @@ namespace dCC_GroupCapstone.Controllers
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create(Customer Customers)
+        public ActionResult Create(Customer customer)
         {
             try
             {
                 // TODO: Add insert logic here
-                context.Customers.Add(Customers);
+                customer.UserId = User.Identity.GetUserId();
+                //var interests = customer.Interests;
+                //foreach (var interest in interests)
+                //{
+                //    var existingInterest = context.Interests.SingleOrDefault(i => i.Name == interest.Name);
+                //    if (existingInterest is null)
+                //    {
+                //        context.Interests.Add(interest);
+                //    }
+                //}
+                context.Customers.Add(customer);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
