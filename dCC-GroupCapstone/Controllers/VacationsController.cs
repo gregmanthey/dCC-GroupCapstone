@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+
 
 namespace dCC_GroupCapstone.Controllers
 {
@@ -20,10 +22,26 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Vacation
         public ActionResult Index()
         {
-            
-            var vacations = context.Vacations.ToList();
+            //context.Configuration.LazyLoadingEnabled = false;
+            //var hotels = context.Hotels;
+            //var activities = context.Activities;
             var userId = User.Identity.GetUserId();
-            Customer customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+            //var test = context.Hotels.Select(h => new { h, h.Name});
+
+            var vacations = context.Vacations.ToList();
+            //var vacations = (from v in context.Vacations
+            //         join h in context.Hotels on v.SavedHotel equals h.Id
+            //         orderby v.VacationName
+            //         select new
+            //         {
+            //             v.VacationName,
+            //             v.Cost,
+            //             v.LocationQueried,
+            //             h.Name
+            //         }).ToList();
+            return View(vacations);
+
+            //Customer customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
             
             //foreach (Vacation vacation in vacations)
             //{
@@ -32,7 +50,6 @@ namespace dCC_GroupCapstone.Controllers
                     
             //    }
             //}
-            return View(vacations);
         }
 
         // GET: Vacation/Details/5
@@ -78,7 +95,7 @@ namespace dCC_GroupCapstone.Controllers
             try
             {
                 var vacationInDb = context.Vacations.Find(id);
-                vacationInDb.Name = vacation.Name;
+                vacationInDb.VacationName = vacation.VacationName;
                 vacationInDb.SavedHotel = vacation.SavedHotel;
                 vacationInDb.LocationQueried = vacation.LocationQueried;
                 vacationInDb.Cost = vacation.Cost;

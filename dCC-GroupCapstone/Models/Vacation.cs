@@ -11,11 +11,10 @@ namespace dCC_GroupCapstone.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string VacationName { get; set; }
         public bool IsPrivate { get; set; }
         public string LocationQueried { get; set; }
         public double Cost { get; set; }
-
         [ForeignKey("Hotel")]
         public int SavedHotel { get; set; }
         public Hotel Hotel { get; set; }
