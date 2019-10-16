@@ -11,7 +11,7 @@ namespace dCC_GroupCapstone.Models
     {
         [Key]
         public int Id { get; set; }
-        
+        public string Name { get; set; }
         public bool IsPrivate { get; set; }
         public string LocationQueried { get; set; }
         public double Cost { get; set; }

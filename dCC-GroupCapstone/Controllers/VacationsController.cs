@@ -1,4 +1,5 @@
 ﻿using dCC_GroupCapstone.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,19 +12,31 @@ using System.Web.Mvc;
 
 namespace dCC_GroupCapstone.Controllers
 {
-    public class VacationController : Controller
+    public class VacationsController : Controller
        
     {
         ApplicationDbContext context;
 
-        public VacationController()
+        public VacationsController()
         {
             context = new ApplicationDbContext();
         }
         // GET: Vacation
         public ActionResult Index()
         {
-            return View(context.Vacations);//probably need to change this view to recently created vacation? or all vacations?
+            
+            var vacations = context.Vacations.ToList();
+            var userId = User.Identity.GetUserId();
+            Customer customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+            
+            //foreach (Vacation vacation in vacations)
+            //{
+            //    if (vacation.IsPrivate == false || customer.SavedVacations.Contains(vacation))
+            //    {
+                    
+            //    }
+            //}
+            return View(vacations);
         }
 
         // GET: Vacation/Details/5
@@ -69,6 +82,11 @@ namespace dCC_GroupCapstone.Controllers
             try
             {
                 var vacationInDb = context.Vacations.Find(id);
+                vacationInDb.Name = vacation.Name;
+                vacationInDb.SavedHotel = vacation.SavedHotel;
+                vacationInDb.LocationQueried = vacation.LocationQueried;
+                vacationInDb.Cost = vacation.Cost;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
