@@ -174,13 +174,17 @@
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RatingsController.cs" />
-    <Compile Include="Controllers\VacationController.cs" />
+    <Compile Include="Controllers\VacationsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201910161202054_init.cs" />
     <Compile Include="Migrations\201910161202054_init.Designer.cs">
       <DependentUpon>201910161202054_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161506023_testt.cs" />
+    <Compile Include="Migrations\201910161506023_testt.Designer.cs">
+      <DependentUpon>201910161506023_testt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -267,6 +271,7 @@
     <Content Include="Views\Hotels\Details.cshtml" />
     <Content Include="Views\Hotels\Edit.cshtml" />
     <Content Include="Views\Hotels\Index.cshtml" />
+    <Content Include="Views\Vacations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -287,6 +292,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910161202054_init.resx">
       <DependentUpon>201910161202054_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161506023_testt.resx">
+      <DependentUpon>201910161506023_testt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

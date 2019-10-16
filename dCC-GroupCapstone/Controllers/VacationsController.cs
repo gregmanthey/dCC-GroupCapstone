@@ -7,19 +7,20 @@ using System.Web.Mvc;
 
 namespace dCC_GroupCapstone.Controllers
 {
-    public class VacationController : Controller
+    public class VacationsController : Controller
        
     {
         ApplicationDbContext context;
 
-        public VacationController()
+        public VacationsController()
         {
             context = new ApplicationDbContext();
         }
         // GET: Vacation
         public ActionResult Index()
         {
-            return View(context.Vacations);//probably need to change this view to recently created vacation? or all vacations?
+            var vacations = context.Vacations.ToList();
+            return View(vacations);
         }
 
         // GET: Vacation/Details/5
