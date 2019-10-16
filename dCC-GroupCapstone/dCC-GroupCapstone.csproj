@@ -276,6 +276,10 @@
     <Content Include="Views\Hotels\Edit.cshtml" />
     <Content Include="Views\Hotels\Index.cshtml" />
     <Content Include="Views\Vacations\Index.cshtml" />
+    <Content Include="Views\Vacations\Create.cshtml" />
+    <Content Include="Views\Vacations\Edit.cshtml" />
+    <Content Include="Views\Vacations\Delete.cshtml" />
+    <Content Include="Views\Vacations\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

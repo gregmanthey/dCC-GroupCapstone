@@ -25,13 +25,13 @@ namespace dCC_GroupCapstone.Controllers
             var userId = User.Identity.GetUserId();
             Customer customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
             
-            foreach (Vacation vacation in vacations)
-            {
-                if (vacation.IsPrivate == false || customer.SavedVacations.Contains(vacation))
-                {
+            //foreach (Vacation vacation in vacations)
+            //{
+            //    if (vacation.IsPrivate == false || customer.SavedVacations.Contains(vacation))
+            //    {
                     
-                }
-            }
+            //    }
+            //}
             return View(vacations);
         }
 
@@ -78,6 +78,11 @@ namespace dCC_GroupCapstone.Controllers
             try
             {
                 var vacationInDb = context.Vacations.Find(id);
+                vacationInDb.Name = vacation.Name;
+                vacationInDb.SavedHotel = vacation.SavedHotel;
+                vacationInDb.LocationQueried = vacation.LocationQueried;
+                vacationInDb.Cost = vacation.Cost;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
