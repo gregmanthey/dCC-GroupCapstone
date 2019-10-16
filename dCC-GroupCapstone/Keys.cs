@@ -7,6 +7,6 @@ namespace dCC_GroupCapstone
 {
     public static class Keys
     {
-        public static string GoogleApiKey = "API_KEY_HERE";
+        public static string GoogleApiKey = "TEST_CHANGE";
     }
 }

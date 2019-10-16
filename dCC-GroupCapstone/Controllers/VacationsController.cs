@@ -1,5 +1,7 @@
 ﻿using dCC_GroupCapstone.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -154,19 +156,22 @@ namespace dCC_GroupCapstone.Controllers
             return results;
         }
 
-        //public async Task<List<GoogleJsonResults.Result>> PlacesTypeApiSearch(string type, string LatLong)
-        //{
-        //    var http = new HttpClient();
-        //    var url = String.Format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={0}&radius=2000&type={1}&key={2}", LatLong, type, Keys.GoogleApiKey);
-        //    var response = await http.GetAsync(url);
-        //    var result = await response.Content.ReadAsStringAsync();
-        //    var serializer = new DataContractJsonSerializer(typeof(GoogleJsonResults.Rootobject));
+        public async Task<List<GoogleJsonResults.Result>> PlacesTypeApiSearch(string type, string LatLong)
+        {
+            var http = new HttpClient();
+            var url = String.Format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={0}&radius=2000&type={1}&key={2}", LatLong, type, Keys.GoogleApiKey);
+            var response = await http.GetAsync(url);
+            var result = await response.Content.ReadAsStringAsync();
+            var jsonData = JsonConvert.DeserializeObject<GoogleJsonResults.Rootobject>(result);
+            var resultsList = new List<GoogleJsonResults.Result>();
 
-        //    var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
-        //    var data = (GoogleJsonResults.Rootobject)serializer.ReadObject(ms);
+            for (int i = 0; i < jsonData.results.Count(); i++)
+            {
+                resultsList.Add(jsonData.results[i]);
+            }
 
-        //    return data;
-        //}
+            return resultsList;
+        }
         // Filter - lodging/other
         // Filter - include interests/don't
     }
