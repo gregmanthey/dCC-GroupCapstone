@@ -68,7 +68,6 @@ namespace dCC_GroupCapstone.Controllers
                 var editCustomer = context.Customers.Find(id);
                 editCustomer.FirstName = customer.FirstName;
                 editCustomer.LastName = customer.LastName;
-                // Circle back to Interest and SavedVacations...
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -91,7 +90,6 @@ namespace dCC_GroupCapstone.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
                 context.Customers.Remove(customer);
                 context.SaveChanges();
                 return RedirectToAction("Index");
