@@ -1,7 +1,11 @@
 ﻿using dCC_GroupCapstone.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -99,6 +103,52 @@ namespace dCC_GroupCapstone.Controllers
         // TODO
         // Methods
         // API Call - get location
+        public List<string> GetPlacesApiTypeList(string interest)
+        {
+            switch (interest)
+            {
+                case "ReligiousPlaces":
+                    return PlaceApiTypes.ReligiousPlaces;
+                case "Food":
+                    return PlaceApiTypes.Food;
+                case "Shopping":
+                    return PlaceApiTypes.Shopping;
+                case "TouristAttractions":
+                    return PlaceApiTypes.TouristAttractions;
+                case "NightLife":
+                    return PlaceApiTypes.NightLife;
+                case "Outdoors":
+                    return PlaceApiTypes.Outdoors;
+                case "Lodging":
+                    return PlaceApiTypes.Lodging;
+                default:
+                    return null;
+            }
+        }
+        public async Task<List<GoogleJsonResults.Result>> LoopThroughPlaceTypes(List<string> types, string LatLong)
+        {
+            var results = new List<GoogleJsonResults.Result>();
+            foreach (string item in types)
+            {
+                var searchResults = await PlacesTypeApiSearch(item, LatLong);
+                results.AddRange(searchResults);
+            }
+            return results;
+        }
+
+        //public async Task<List<GoogleJsonResults.Result>> PlacesTypeApiSearch(string type, string LatLong)
+        //{
+        //    var http = new HttpClient();
+        //    var url = String.Format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={0}&radius=2000&type={1}&key={2}", LatLong, type, Keys.GoogleApiKey);
+        //    var response = await http.GetAsync(url);
+        //    var result = await response.Content.ReadAsStringAsync();
+        //    var serializer = new DataContractJsonSerializer(typeof(GoogleJsonResults.Rootobject));
+
+        //    var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
+        //    var data = (GoogleJsonResults.Rootobject)serializer.ReadObject(ms);
+
+        //    return data;
+        //}
         // Filter - lodging/other
         // Filter - include interests/don't
     }
