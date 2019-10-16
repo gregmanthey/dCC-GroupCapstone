@@ -1,4 +1,5 @@
 ﻿using dCC_GroupCapstone.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,18 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Vacation
         public ActionResult Index()
         {
+            
             var vacations = context.Vacations.ToList();
+            var userId = User.Identity.GetUserId();
+            Customer customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+            
+            foreach (Vacation vacation in vacations)
+            {
+                if (vacation.IsPrivate == false || customer.SavedVacations.Contains(vacation))
+                {
+                    
+                }
+            }
             return View(vacations);
         }
 
