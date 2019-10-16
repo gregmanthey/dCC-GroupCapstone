@@ -178,17 +178,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910161559136_Init.cs" />
-    <Compile Include="Migrations\201910161559136_Init.Designer.cs">
-      <DependentUpon>201910161559136_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910161506023_testt.cs" />
-    <Compile Include="Migrations\201910161506023_testt.Designer.cs">
-      <DependentUpon>201910161506023_testt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910161518267_testtttt.cs" />
-    <Compile Include="Migrations\201910161518267_testtttt.Designer.cs">
-      <DependentUpon>201910161518267_testtttt.cs</DependentUpon>
+    <Compile Include="Migrations\201910161645563_test.cs" />
+    <Compile Include="Migrations\201910161645563_test.Designer.cs">
+      <DependentUpon>201910161645563_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -280,6 +272,7 @@
     <Content Include="Views\Vacations\Edit.cshtml" />
     <Content Include="Views\Vacations\Delete.cshtml" />
     <Content Include="Views\Vacations\Details.cshtml" />
+    <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,14 +291,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910161559136_Init.resx">
-      <DependentUpon>201910161559136_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910161506023_testt.resx">
-      <DependentUpon>201910161506023_testt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910161518267_testtttt.resx">
-      <DependentUpon>201910161518267_testtttt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910161645563_test.resx">
+      <DependentUpon>201910161645563_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
