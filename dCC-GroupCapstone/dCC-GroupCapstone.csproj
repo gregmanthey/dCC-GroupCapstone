@@ -178,9 +178,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910162011317_reeee.cs" />
-    <Compile Include="Migrations\201910162011317_reeee.Designer.cs">
-      <DependentUpon>201910162011317_reeee.cs</DependentUpon>
+    <Compile Include="GoogleJsonResults.cs" />
+    <Compile Include="Keys.cs" />
+    <Compile Include="Migrations\201910161645563_test.cs" />
+    <Compile Include="Migrations\201910161645563_test.Designer.cs">
+      <DependentUpon>201910161645563_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -272,6 +274,7 @@
     <Content Include="Views\Vacations\Edit.cshtml" />
     <Content Include="Views\Vacations\Delete.cshtml" />
     <Content Include="Views\Vacations\Details.cshtml" />
+    <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -290,8 +293,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910162011317_reeee.resx">
-      <DependentUpon>201910162011317_reeee.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910161645563_test.resx">
+      <DependentUpon>201910161645563_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
