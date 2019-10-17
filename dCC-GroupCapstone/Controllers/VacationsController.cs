@@ -45,6 +45,7 @@ namespace dCC_GroupCapstone.Controllers
             //             v.LocationQueried,
             //             h.Name
             //         }).ToList();
+
             return View(vacations);
 
             //Customer customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
