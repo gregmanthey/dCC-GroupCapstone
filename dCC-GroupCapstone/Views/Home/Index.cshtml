@@ -22,6 +22,11 @@
 </div>
 
 <div class="row">
-    @{ Html.RenderAction("Index", "Vacations"); }
+    <div class="col-md-6">
+        @{ Html.RenderAction("Index", "Vacations"); }
+    </div>
+    <div class="col-md-6">
+        @{ Html.RenderAction("Details", "Hotels");}
+    </div>
 </div>
 

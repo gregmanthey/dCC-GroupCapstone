@@ -180,6 +180,10 @@
     </Compile>
     <Compile Include="GoogleJsonResults.cs" />
     <Compile Include="Keys.cs" />
+    <Compile Include="Migrations\201910170642487_addedMoreSeeds.cs" />
+    <Compile Include="Migrations\201910170642487_addedMoreSeeds.Designer.cs">
+      <DependentUpon>201910170642487_addedMoreSeeds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -289,8 +293,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910161645563_test.resx">
-      <DependentUpon>201910161645563_test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910170642487_addedMoreSeeds.resx">
+      <DependentUpon>201910170642487_addedMoreSeeds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
