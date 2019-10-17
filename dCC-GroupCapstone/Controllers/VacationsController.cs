@@ -33,8 +33,14 @@ namespace dCC_GroupCapstone.Controllers
             //var activities = context.Activities;
             var userId = User.Identity.GetUserId();
             //var test = context.Hotels.Select(h => new { h, h.Name});
-
             var vacations = context.Vacations.ToList();
+            var activities = context.Activities.ToList();
+            var hotels = context.Hotels.ToList();
+            var tuple = new Tuple<IEnumerable<Vacation>, IEnumerable<Activity>, IEnumerable<Hotel>>(vacations, activities, hotels);
+
+            //var hotel = context.Hotels.SingleOrDefault(h => h.Id == );
+            //tuple.Item3.Id = ;
+            //var vacations = context.Vacations.ToList();
             //var vacations = (from v in context.Vacations
             //         join h in context.Hotels on v.SavedHotel equals h.Id
             //         orderby v.VacationName
@@ -45,8 +51,7 @@ namespace dCC_GroupCapstone.Controllers
             //             v.LocationQueried,
             //             h.Name
             //         }).ToList();
-
-            return View(vacations);
+            return View(tuple);
 
             //Customer customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
             
