@@ -111,6 +111,15 @@ namespace dCC_GroupCapstone.Controllers
                 vacationInDb.SavedHotel = vacation.SavedHotel;
                 vacationInDb.LocationQueried = vacation.LocationQueried;
                 vacationInDb.Cost = vacation.Cost;
+                //if (vacationInDb != context.Vacations.Find(id))
+                //{
+                //    var ratings = context.Ratings.Where(r => r.VacationId == id);
+                //    foreach (Rating rating in ratings)
+                //    {
+                //        context.Ratings.Remove(rating);
+                //    }
+                //    context.SaveChanges();
+                //}
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }

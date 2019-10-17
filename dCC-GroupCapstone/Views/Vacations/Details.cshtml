@@ -50,10 +50,19 @@
             @Html.DisplayFor(model => model.SavedHotel)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.AverageRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AverageRating)
+        </dd>
+
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", "Vacations", new { id = Model.Id }, null) |
     @Html.ActionLink("Back to List", "Index", "Vacations") |
+    @Html.ActionLink("Delete", "Vacations", new { id = Model.Id}) |
     @Html.ActionLink("Rate Vacation", "Create", "Ratings", new { vacationId = Model.Id, value = 1}, null)
 </p>

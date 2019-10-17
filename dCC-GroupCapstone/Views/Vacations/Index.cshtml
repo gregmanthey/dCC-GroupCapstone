@@ -23,6 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().SavedHotel)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().AverageRating)
+        </th>
         <th></th>
     </tr>
 
@@ -37,14 +40,11 @@
     <td>
         @Html.DisplayFor(modelItem => item.Cost)
     </td>
-    @*@foreach (var activity in item.Activities)
-    {
-<td>
-    @Html.DisplayFor(modelItem => Model.Item2.FirstOrDefault(a => a.Id == activity.Id).Name)
-</td>
-    }*@
     <td>
         @Html.DisplayFor(modelItem => Model.Item3.FirstOrDefault(h => h.Id == item.SavedHotel).Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AverageRating)
     </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
