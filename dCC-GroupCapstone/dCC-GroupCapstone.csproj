@@ -180,13 +180,9 @@
     </Compile>
     <Compile Include="GoogleJsonResults.cs" />
     <Compile Include="Keys.cs" />
-    <Compile Include="Migrations\201910170642487_addedMoreSeeds.cs" />
-    <Compile Include="Migrations\201910170642487_addedMoreSeeds.Designer.cs">
-      <DependentUpon>201910170642487_addedMoreSeeds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910171411369_Test.cs" />
-    <Compile Include="Migrations\201910171411369_Test.Designer.cs">
-      <DependentUpon>201910171411369_Test.cs</DependentUpon>
+    <Compile Include="Migrations\201910171532403_test.cs" />
+    <Compile Include="Migrations\201910171532403_test.Designer.cs">
+      <DependentUpon>201910171532403_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -299,11 +295,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910170642487_addedMoreSeeds.resx">
-      <DependentUpon>201910170642487_addedMoreSeeds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910171411369_Test.resx">
-      <DependentUpon>201910171411369_Test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910171532403_test.resx">
+      <DependentUpon>201910171532403_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

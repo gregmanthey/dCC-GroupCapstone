@@ -47,6 +47,9 @@ namespace dCC_GroupCapstone.Controllers
                 {
                     context.Ratings.Add(rating);
                     context.SaveChanges();
+                    Vacation vacation = context.Vacations.SingleOrDefault(v => v.Id == rating.VacationId);
+                    vacation.AverageRating = AverageRatings(vacation);
+                    context.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 else if (existingRating != null)
@@ -78,6 +81,9 @@ namespace dCC_GroupCapstone.Controllers
             {
                 Rating editRating = context.Ratings.SingleOrDefault(r => r.CustomerId == rating.CustomerId && r.VacationId == rating.VacationId);
                 editRating.RatingValue = rating.RatingValue;
+                context.SaveChanges();
+                Vacation vacation = context.Vacations.SingleOrDefault(v => v.Id == rating.VacationId);
+                vacation.AverageRating = AverageRatings(vacation);
                 context.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
@@ -111,10 +117,11 @@ namespace dCC_GroupCapstone.Controllers
         }
         // Methods
         // AverageRating
-        public void AverageRatings(Vacation vacation)
+        public double AverageRatings(Vacation vacation)
         {
             var ratings = context.Ratings.Where(r => r.VacationId == vacation.Id)
                 .Select(r => r.RatingValue).Average();
+            return ratings;
         }
     }
 }
