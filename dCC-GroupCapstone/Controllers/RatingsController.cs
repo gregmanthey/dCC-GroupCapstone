@@ -53,7 +53,7 @@ namespace dCC_GroupCapstone.Controllers
             }
             else{
                 Console.WriteLine("You must register for an account to rate vacations.");
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Register", "Account");
             }
         }
 
