@@ -56,11 +56,31 @@ namespace dCC_GroupCapstone.Controllers
             return View(context.Vacations.Where(v => v.Id == id).FirstOrDefault());
         }
 
-        // GET: Vacation/Create
-        public ActionResult Create()
+        // GET 
+        public ActionResult StartCreate()
         {
+            // API CALLS
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult StartCreate(string selectedLocation)
+        {
+            // API CALLS WITH selectedLocation => geocodedLocation
+            string geocodedLocation = "a";
+            return RedirectToAction("Create", new { latlong = geocodedLocation });
+        }
+
+        // GET: Vacation/Create
+        public ActionResult Create( string latlong)
+        {
+            // take latlong and put into lists of hotels/activities/bleh
             Vacation vacation = new Vacation();
-            return View(vacation);
+            var hotels = context.Hotels.ToList();
+            var activities = context.Activities.ToList();
+            var tupleResult = new Tuple<Vacation, IEnumerable<Hotel>, IEnumerable<Activity>>(vacation, hotels, activities);
+            return View(tupleResult);
         }
 
         // POST: Vacation/Create

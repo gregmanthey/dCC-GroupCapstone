@@ -1,4 +1,4 @@
-﻿@model dCC_GroupCapstone.Models.Vacation
+﻿@model Tuple<dCC_GroupCapstone.Models.Vacation, IEnumerable<dCC_GroupCapstone.Models.Hotel>, IEnumerable<dCC_GroupCapstone.Models.Activity>>
 
 @{
     ViewBag.Title = "Create";
@@ -16,44 +16,44 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.VacationName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item1.VacationName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VacationName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VacationName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Item1.VacationName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Item1.VacationName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item1.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsPrivate)
-                    @Html.ValidationMessageFor(model => model.IsPrivate, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Item1.IsPrivate)
+                    @Html.ValidationMessageFor(model => model.Item1.IsPrivate, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LocationQueried, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item1.LocationQueried, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LocationQueried, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LocationQueried, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Item1.LocationQueried, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Item1.LocationQueried, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item1.Cost, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Item1.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Item1.Cost, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SavedHotel, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Item1.SavedHotel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SavedHotel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SavedHotel, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Item1.SavedHotel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Item1.SavedHotel, "", new { @class = "text-danger" })
             </div>
         </div>
 
