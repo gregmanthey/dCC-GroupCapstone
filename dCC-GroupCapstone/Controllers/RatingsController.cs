@@ -23,15 +23,6 @@ namespace dCC_GroupCapstone.Controllers
             return View(ratingsList);
         }
 
-        // GET: Ratings/Details/5
-        // Is this even necessary to get an individual Rating Details? Maybe for viewing other reviews from the same user?
-        public ActionResult Details(Vacation vacation)
-        {
-
-
-            return View();
-        }
-
         // GET: Ratings/Create
         // Creating from some icon/button on GUI.
         // Five icons, all set to value forms?
@@ -70,11 +61,6 @@ namespace dCC_GroupCapstone.Controllers
                 return RedirectToAction("Register", "Account");
             }
             return null;
-            // Redirect to the page they were already on
-            //context.Ratings.Add(rating);
-            //context.SaveChangesAsync();
-            //return RedirectToAction("Index", "Home");
-            
         }
 
         // GET: Ratings/Edit/5
@@ -90,8 +76,6 @@ namespace dCC_GroupCapstone.Controllers
         {
             try
             {
-
-
                 Rating editRating = context.Ratings.SingleOrDefault(r => r.CustomerId == rating.CustomerId && r.VacationId == rating.VacationId);
                 editRating.RatingValue = rating.RatingValue;
                 context.SaveChanges();
