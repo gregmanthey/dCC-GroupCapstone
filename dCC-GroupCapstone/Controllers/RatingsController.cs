@@ -52,7 +52,7 @@ namespace dCC_GroupCapstone.Controllers
                 return View(rating);
             }
             else{
-                Console.WriteLine("You must be logged in to do that");
+                Console.WriteLine("You must register for an account to rate vacations.");
                 return RedirectToAction("Login", "Home");
             }
         }
