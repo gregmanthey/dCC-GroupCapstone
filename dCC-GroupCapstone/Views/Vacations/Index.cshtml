@@ -1,4 +1,4 @@
-﻿@model IEnumerable<dCC_GroupCapstone.Models.Vacation>
+﻿@model Tuple<IEnumerable<dCC_GroupCapstone.Models.Vacation>, IEnumerable<dCC_GroupCapstone.Models.Activity>, IEnumerable<dCC_GroupCapstone.Models.Hotel>>
 
 @{
     ViewBag.Title = "Index";
@@ -12,21 +12,21 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.VacationName)
+            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().VacationName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LocationQueried)
+            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().LocationQueried)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cost)
+            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Cost)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SavedHotel)
+            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().SavedHotel)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Item1) {
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.VacationName)
@@ -37,8 +37,14 @@
     <td>
         @Html.DisplayFor(modelItem => item.Cost)
     </td>
+    @*@foreach (var activity in item.Activities)
+    {
+<td>
+    @Html.DisplayFor(modelItem => Model.Item2.FirstOrDefault(a => a.Id == activity.Id).Name)
+</td>
+    }*@
     <td>
-        @Html.DisplayFor(modelItem => item.SavedHotel)
+        @Html.DisplayFor(modelItem => Model.Item3.FirstOrDefault(h => h.Id == item.SavedHotel).Name)
     </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
