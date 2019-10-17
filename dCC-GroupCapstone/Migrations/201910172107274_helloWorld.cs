@@ -3,7 +3,7 @@ namespace dCC_GroupCapstone.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initt : DbMigration
+    public partial class helloWorld : DbMigration
     {
         public override void Up()
         {
@@ -57,20 +57,15 @@ namespace dCC_GroupCapstone.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         FirstName = c.String(),
                         LastName = c.String(),
+                        InterestsSerialized = c.String(),
                         UserId = c.String(maxLength: 128),
+                        Interest_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.Interests",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
+                .ForeignKey("dbo.Interests", t => t.Interest_Id)
+                .Index(t => t.UserId)
+                .Index(t => t.Interest_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -131,6 +126,15 @@ namespace dCC_GroupCapstone.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Interests",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Ratings",
                 c => new
                     {
@@ -167,19 +171,6 @@ namespace dCC_GroupCapstone.Migrations
                 .Index(t => t.Vacation_Id)
                 .Index(t => t.Activity_Id);
             
-            CreateTable(
-                "dbo.InterestCustomers",
-                c => new
-                    {
-                        Interest_Id = c.Int(nullable: false),
-                        Customer_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Interest_Id, t.Customer_Id })
-                .ForeignKey("dbo.Interests", t => t.Interest_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Customers", t => t.Customer_Id, cascadeDelete: true)
-                .Index(t => t.Interest_Id)
-                .Index(t => t.Customer_Id);
-            
         }
         
         public override void Down()
@@ -187,18 +178,15 @@ namespace dCC_GroupCapstone.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Ratings", "VacationId", "dbo.Vacations");
             DropForeignKey("dbo.Ratings", "CustomerId", "dbo.Customers");
+            DropForeignKey("dbo.Customers", "Interest_Id", "dbo.Interests");
             DropForeignKey("dbo.Customers", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Vacations", "Customer_Id", "dbo.Customers");
-            DropForeignKey("dbo.InterestCustomers", "Customer_Id", "dbo.Customers");
-            DropForeignKey("dbo.InterestCustomers", "Interest_Id", "dbo.Interests");
             DropForeignKey("dbo.Vacations", "SavedHotel", "dbo.Hotels");
             DropForeignKey("dbo.VacationActivities", "Activity_Id", "dbo.Activities");
             DropForeignKey("dbo.VacationActivities", "Vacation_Id", "dbo.Vacations");
-            DropIndex("dbo.InterestCustomers", new[] { "Customer_Id" });
-            DropIndex("dbo.InterestCustomers", new[] { "Interest_Id" });
             DropIndex("dbo.VacationActivities", new[] { "Activity_Id" });
             DropIndex("dbo.VacationActivities", new[] { "Vacation_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -209,18 +197,18 @@ namespace dCC_GroupCapstone.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Customers", new[] { "Interest_Id" });
             DropIndex("dbo.Customers", new[] { "UserId" });
             DropIndex("dbo.Vacations", new[] { "Customer_Id" });
             DropIndex("dbo.Vacations", new[] { "SavedHotel" });
-            DropTable("dbo.InterestCustomers");
             DropTable("dbo.VacationActivities");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Ratings");
+            DropTable("dbo.Interests");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Interests");
             DropTable("dbo.Customers");
             DropTable("dbo.Hotels");
             DropTable("dbo.Vacations");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +17,20 @@ namespace dCC_GroupCapstone.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Display(Name = "Interests")]
-        public ICollection<Interest> Interests { get; set; }
+        public virtual ICollection<string> Interests
+        {
+            get { return _Interests; }
+            set { _Interests = value; }
+        }
+
+        private ICollection<string> _Interests;
+
+        public string InterestsSerialized
+        {
+            get { return JsonConvert.SerializeObject(_Interests); }
+            set { _Interests = JsonConvert.DeserializeObject<ICollection<string>>(value); }
+        }
+
         [Display(Name = "Saved Vacations")]
         public ICollection<Vacation> SavedVacations { get; set; }
 
