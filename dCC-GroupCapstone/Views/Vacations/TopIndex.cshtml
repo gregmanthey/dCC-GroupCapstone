@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<dCC_GroupCapstone.Models.Vacation>
 
 @{
-    ViewBag.Title = "UserIndex";
+    ViewBag.Title = "TopIndex";
 }
 
-<h2>UserIndex</h2>
+<h2>TopIndex</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -15,13 +15,7 @@
             @Html.DisplayNameFor(model => model.VacationName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsPrivate)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.LocationQueried)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerCreated)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cost)
@@ -41,13 +35,7 @@
             @Html.DisplayFor(modelItem => item.VacationName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsPrivate)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.LocationQueried)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerCreated)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Cost)
@@ -59,9 +47,16 @@
             @Html.DisplayFor(modelItem => item.AverageRating)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) @:|
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            }
+            else
+            {
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            }
         </td>
     </tr>
 }

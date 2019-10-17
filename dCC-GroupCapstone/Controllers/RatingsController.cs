@@ -36,9 +36,9 @@ namespace dCC_GroupCapstone.Controllers
         // POST: Ratings/Create
         [HttpPost]
         public ActionResult Create(Rating rating)
-        {
+        {           
             var userId = User.Identity.GetUserId();
-            Customer customer = context.Customers.Where(c => c.UserId == userId).SingleOrDefault();
+            Customer customer = context.Customers.Where(c => c.UserId == userId).FirstOrDefault();
             rating.CustomerId = customer.Id;
             if (userId != null)
             {

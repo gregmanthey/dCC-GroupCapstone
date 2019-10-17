@@ -46,10 +46,17 @@
     <td>
         @Html.DisplayFor(modelItem => item.AverageRating)
     </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    <td>         
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) @:|
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        }
+        else
+        {
+            @Html.ActionLink("Details", "Details", new { id = item.Id })  
+        }
     </td>
 </tr>
 }

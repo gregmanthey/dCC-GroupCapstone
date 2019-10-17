@@ -44,6 +44,12 @@ namespace dCC_GroupCapstone.Controllers
             return View(vacations);
         }
 
+        public ActionResult TopIndex()
+        {
+            var vacations = context.Vacations.OrderByDescending(v => v.AverageRating).ToList();
+            return View(vacations);
+        }
+
         // GET: Vacation/Details/5
         public ActionResult Details(int id)
         {
