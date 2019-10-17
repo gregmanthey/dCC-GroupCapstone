@@ -1,4 +1,5 @@
 ﻿using dCC_GroupCapstone.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,13 +35,26 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Ratings/Create
         // Creating from some icon/button on GUI.
         // Five icons, all set to value forms?
-        public ActionResult Create(Vacation vacation, Customer customer, int value)
+        public ActionResult Create(int vacationId, int value)
         {
-            Rating rating = new Rating();
-            rating.CustomerId = customer.Id;
-            rating.VacationId = vacation.Id;
-            rating.RatingValue = value;
-            return View(rating);
+            
+            var userId = User.Identity.GetUserId();
+            if(userId != null)
+            {
+                
+                Customer customer = context.Customers.Where(c => c.UserId == userId).SingleOrDefault();
+                Rating rating = new Rating();
+                rating.VacationId = vacationId;
+                rating.CustomerId = customer.Id;
+                rating.RatingValue = value;
+                context.Ratings.Add(rating);
+                context.SaveChanges();
+                return View(rating);
+            }
+            else{
+                Console.WriteLine("You must be logged in to do that");
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // POST: Ratings/Create
@@ -52,7 +66,7 @@ namespace dCC_GroupCapstone.Controllers
                 // Redirect to the page they were already on
                 context.Ratings.Add(rating);
                 context.SaveChangesAsync();
-                return RedirectToAction("Details", "Vacation");
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
