@@ -180,9 +180,9 @@
     </Compile>
     <Compile Include="GoogleJsonResults.cs" />
     <Compile Include="Keys.cs" />
-    <Compile Include="Migrations\201910171532403_test.cs" />
-    <Compile Include="Migrations\201910171532403_test.Designer.cs">
-      <DependentUpon>201910171532403_test.cs</DependentUpon>
+    <Compile Include="Migrations\201910171743014_initt.cs" />
+    <Compile Include="Migrations\201910171743014_initt.Designer.cs">
+      <DependentUpon>201910171743014_initt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -277,6 +277,7 @@
     <Content Include="Views\Vacations\Details.cshtml" />
     <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
     <Content Include="Views\Ratings\Create.cshtml" />
+    <Content Include="Views\Vacations\UserIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -295,8 +296,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910171532403_test.resx">
-      <DependentUpon>201910171532403_test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910171743014_initt.resx">
+      <DependentUpon>201910171743014_initt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

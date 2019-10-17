@@ -14,6 +14,7 @@ namespace dCC_GroupCapstone.Models
         public string VacationName { get; set; }
         public bool IsPrivate { get; set; }
         public string LocationQueried { get; set; }
+        public int CustomerCreated { get; set; }
         public double Cost { get; set; }
         [ForeignKey("Hotel")]
         public int SavedHotel { get; set; }

@@ -28,40 +28,20 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Vacation
         public ActionResult Index()
         {
-            //context.Configuration.LazyLoadingEnabled = false;
-            //var hotels = context.Hotels;
-            //var activities = context.Activities;
             var userId = User.Identity.GetUserId();
-            //var test = context.Hotels.Select(h => new { h, h.Name});
             var vacations = context.Vacations.ToList();
             var activities = context.Activities.ToList();
             var hotels = context.Hotels.ToList();
             var tuple = new Tuple<IEnumerable<Vacation>, IEnumerable<Activity>, IEnumerable<Hotel>>(vacations, activities, hotels);
-
-            //var hotel = context.Hotels.SingleOrDefault(h => h.Id == );
-            //tuple.Item3.Id = ;
-            //var vacations = context.Vacations.ToList();
-            //var vacations = (from v in context.Vacations
-            //         join h in context.Hotels on v.SavedHotel equals h.Id
-            //         orderby v.VacationName
-            //         select new
-            //         {
-            //             v.VacationName,
-            //             v.Cost,
-            //             v.LocationQueried,
-            //             h.Name
-            //         }).ToList();
             return View(tuple);
+        }
 
-            //Customer customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
-            
-            //foreach (Vacation vacation in vacations)
-            //{
-            //    if (vacation.IsPrivate == false || customer.SavedVacations.Contains(vacation))
-            //    {
-                    
-            //    }
-            //}
+        public ActionResult UserIndex()
+        {
+            var userId = User.Identity.GetUserId();
+            var customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+            var vacations = context.Vacations.Where(v => v.CustomerCreated == customer.Id).ToList();
+            return View(vacations);
         }
 
         // GET: Vacation/Details/5
@@ -83,6 +63,9 @@ namespace dCC_GroupCapstone.Controllers
         {
             try
             {
+                var userId = User.Identity.GetUserId();
+                var customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+                vacation.CustomerCreated = customer.Id;
                 context.Vacations.Add(vacation);
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -111,6 +94,8 @@ namespace dCC_GroupCapstone.Controllers
                 vacationInDb.SavedHotel = vacation.SavedHotel;
                 vacationInDb.LocationQueried = vacation.LocationQueried;
                 vacationInDb.Cost = vacation.Cost;
+                var userId = User.Identity.GetUserId();
+                vacationInDb.CustomerCreated = context.Customers.SingleOrDefault(c => c.UserId == userId).Id;
                 //if (vacationInDb != context.Vacations.Find(id))
                 //{
                 //    var ratings = context.Ratings.Where(r => r.VacationId == id);
