@@ -35,43 +35,46 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Ratings/Create
         // Creating from some icon/button on GUI.
         // Five icons, all set to value forms?
-        public ActionResult Create(int vacationId, int value)
+        public ActionResult Create(int vacationId)
         {
-            
-            var userId = User.Identity.GetUserId();
-            if(userId != null)
-            {
-                
-                Customer customer = context.Customers.Where(c => c.UserId == userId).SingleOrDefault();
-                Rating rating = new Rating();
-                rating.VacationId = vacationId;
-                rating.CustomerId = customer.Id;
-                rating.RatingValue = value;
-                context.Ratings.Add(rating);
-                context.SaveChanges();
-                return View(rating);
-            }
-            else{
-                Console.WriteLine("You must be logged in to do that");
-                return RedirectToAction("Login", "Home");
-            }
+            Rating newRating = new Rating();
+            newRating.VacationId = vacationId;
+            return View(newRating);
         }
 
         // POST: Ratings/Create
         [HttpPost]
         public ActionResult Create(Rating rating)
         {
-            try
+            var userId = User.Identity.GetUserId();
+            Customer customer = context.Customers.Where(c => c.UserId == userId).SingleOrDefault();
+            rating.CustomerId = customer.Id;
+            if (userId != null)
             {
-                // Redirect to the page they were already on
-                context.Ratings.Add(rating);
-                context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                Rating existingRating = context.Ratings.Where(r => r.CustomerId == rating.CustomerId && r.VacationId == rating.VacationId).SingleOrDefault();
+                if (existingRating == null)
+                {
+                    context.Ratings.Add(rating);
+                    context.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (existingRating != null)
+                {
+                    //return RedirectToAction("Edit", "Ratings", new { id = vacationId, rating = newRating});
+                    return Edit(rating.CustomerId, rating);
+                }
             }
-            catch
+            else
             {
-                return View();
+                Console.WriteLine("You must be logged in to do that");
+                return RedirectToAction("Register", "Account");
             }
+            return null;
+            // Redirect to the page they were already on
+            //context.Ratings.Add(rating);
+            //context.SaveChangesAsync();
+            //return RedirectToAction("Index", "Home");
+            
         }
 
         // GET: Ratings/Edit/5
@@ -87,10 +90,12 @@ namespace dCC_GroupCapstone.Controllers
         {
             try
             {
-                Rating editRating = context.Ratings.Find(id);
+
+
+                Rating editRating = context.Ratings.SingleOrDefault(r => r.CustomerId == rating.CustomerId && r.VacationId == rating.VacationId);
                 editRating.RatingValue = rating.RatingValue;
-                context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                context.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
             catch
             {

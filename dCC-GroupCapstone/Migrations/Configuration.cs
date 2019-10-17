@@ -40,8 +40,8 @@ namespace dCC_GroupCapstone.Migrations
                 );
 
             context.Vacations.AddOrUpdate(
-                new Models.Vacation { IsPrivate = false, LocationQueried = "Milwaukee", Cost = 200, SavedHotel = 1},
-                new Models.Vacation { IsPrivate = false, LocationQueried = "Milwaukee", Cost = 400, SavedHotel = 2}
+                new Models.Vacation { VacationName = "Vacation One", IsPrivate = false, LocationQueried = "Milwaukee", Cost = 200, SavedHotel = 1},
+                new Models.Vacation { VacationName = "Vacation Two", IsPrivate = false, LocationQueried = "Milwaukee", Cost = 400, SavedHotel = 2}
                 );
             
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
