@@ -17,6 +17,8 @@ namespace dCC_GroupCapstone.Models
         public bool IsPrivate { get; set; }
         [Display(Name = "Location")]
         public string LocationQueried { get; set; }
+
+        public string LatLong { get; set; }
         public int CustomerCreated { get; set; }
         public double Cost { get; set; }
         [ForeignKey("Hotel")]

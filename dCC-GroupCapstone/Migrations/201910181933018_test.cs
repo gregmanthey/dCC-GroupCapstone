@@ -3,7 +3,7 @@ namespace dCC_GroupCapstone.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class test : DbMigration
     {
         public override void Up()
         {
@@ -14,6 +14,7 @@ namespace dCC_GroupCapstone.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         PlaceId = c.String(),
+                        LatLong = c.String(),
                         Description = c.String(),
                         Price = c.Double(nullable: false),
                     })
@@ -27,6 +28,7 @@ namespace dCC_GroupCapstone.Migrations
                         VacationName = c.String(),
                         IsPrivate = c.Boolean(nullable: false),
                         LocationQueried = c.String(),
+                        LatLong = c.String(),
                         CustomerCreated = c.Int(nullable: false),
                         Cost = c.Double(nullable: false),
                         SavedHotel = c.Int(nullable: false),
@@ -46,6 +48,7 @@ namespace dCC_GroupCapstone.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         PlaceId = c.String(),
+                        LatLong = c.String(),
                         Price = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);

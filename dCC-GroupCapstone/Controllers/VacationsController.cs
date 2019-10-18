@@ -32,7 +32,7 @@ namespace dCC_GroupCapstone.Controllers
             var vacations = context.Vacations.ToList();
             var activities = context.Activities.ToList();
             var hotels = context.Hotels.ToList();
-            var tuple = new Tuple<IEnumerable<Vacation>, IEnumerable<Activity>, IEnumerable<Hotel>>(vacations, activities, hotels);
+            var tuple = Tuple.Create(vacations, activities, hotels);
             return View(tuple);
         }
 
@@ -69,11 +69,11 @@ namespace dCC_GroupCapstone.Controllers
         {
             var selectedLocation = vacation.LocationQueried;
             string geocodedLocation = await GeocodeFromLocationToLatLongString(selectedLocation);
-            return RedirectToAction("Create", new { latLong = geocodedLocation });
+            return RedirectToAction("Create", new { latLong = geocodedLocation, locationName = selectedLocation });
         }
 
         // GET: Vacation/Create
-        public async Task<ActionResult> Create( string latLong )
+        public async Task<ActionResult> Create( string latLong, string locationName )
         {
             // take latlong and put into lists of hotels/activities/bleh
             var currentUserId = User.Identity.GetUserId();
@@ -100,6 +100,7 @@ namespace dCC_GroupCapstone.Controllers
                             hotel.Name = result.name;
                             hotel.PlaceId = result.place_id;
                             hotel.Price = result.price_level;
+                            hotel.LatLong = result.geometry.location.lat.ToString() + "," + result.geometry.location.lng.ToString();
                             //hotel.GoogleRating = result.rating;
                             hotels.Add(hotel);
                         }
@@ -112,14 +113,14 @@ namespace dCC_GroupCapstone.Controllers
                             activity.Name = result.name;
                             activity.PlaceId = result.place_id;
                             activity.Price = result.price_level;
+                            activity.LatLong = result.geometry.location.lat.ToString() + "," + result.geometry.location.lng.ToString();
                             //activity.GoogleRating = result.rating;
                             activities.Add(activity);
                         }
                     }
                 }
             }
-            Vacation vacation = new Vacation();
-            
+            Vacation vacation = new Vacation() { LocationQueried = locationName, VacationName = "My New Vacation"};
             var tupleResult = new Tuple<Vacation, IEnumerable<Hotel>, IEnumerable<Activity>>(vacation, hotels, activities);
             return View(tupleResult);
         }
@@ -282,6 +283,28 @@ namespace dCC_GroupCapstone.Controllers
 
             return latLong;
         }
+
+        public string GenerateStaticMapUrlForVacation(Vacation vacation)
+        {
+            var url = new StringBuilder();
+            url.Append("https://maps.googleapis.com/maps/api/staticmap?");
+            url.Append("size=600x600&maptype=hybrid&markers=color:blue|label:A|");
+            //var activities = context.Activities.Where(a => a.Id == vacation.Activities.).ToList();
+            if (vacation.Activities != null)
+            {
+                foreach (var activity in vacation.Activities)
+                {
+                    var activityLocation = context.Activities.FirstOrDefault(a => a.Id == activity.Id).LatLong;
+                    url.Append($"{activityLocation}|");
+                }
+            }
+            
+            var hotelLocation = context.Hotels.FirstOrDefault(h => h.Id == vacation.SavedHotel).LatLong;
+            url.Append($"&markers=color:orange|label:H|{hotelLocation}&");
+            url.Append("key=" + Keys.GoogleApiKey);
+            return url.ToString();
+        }
+        //https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=YOUR_API_KEY
         // Filter - lodging/other
         // Filter - include interests/don't
     }
