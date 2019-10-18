@@ -65,10 +65,11 @@ namespace dCC_GroupCapstone.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> StartCreate(string selectedLocation)
+        public async Task<ActionResult> StartCreate(Vacation vacation)
         {
+            var selectedLocation = vacation.LocationQueried;
             string geocodedLocation = await GeocodeFromLocationToLatLongString(selectedLocation);
-            return RedirectToAction("Create", new { latlong = geocodedLocation });
+            return RedirectToAction("Create", new { latLong = geocodedLocation });
         }
 
         // GET: Vacation/Create
@@ -76,8 +77,12 @@ namespace dCC_GroupCapstone.Controllers
         {
             // take latlong and put into lists of hotels/activities/bleh
             var currentUserId = User.Identity.GetUserId();
-            var currentCustomer = context.Customers.SingleOrDefault(c => c.UserId == currentUserId);
+            var currentCustomer = context.Customers.FirstOrDefault(c => c.UserId == currentUserId);
             var customerInterests = currentCustomer.Interests;
+            if (customerInterests is null)
+            {
+                customerInterests = new List<string>();
+            }
             customerInterests.Add("Lodging");
             var hotels = new List<Hotel>();
             var activities = new List<Activity>();
