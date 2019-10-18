@@ -181,9 +181,9 @@
     <Compile Include="GooglePlacesApiJson.cs" />
     <Compile Include="GoogleMapsApiJson.cs" />
     <Compile Include="Keys.cs" />
-    <Compile Include="Migrations\201910172107274_helloWorld.cs" />
-    <Compile Include="Migrations\201910172107274_helloWorld.Designer.cs">
-      <DependentUpon>201910172107274_helloWorld.cs</DependentUpon>
+    <Compile Include="Migrations\201910181344533_init.cs" />
+    <Compile Include="Migrations\201910181344533_init.Designer.cs">
+      <DependentUpon>201910181344533_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -299,8 +299,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910172107274_helloWorld.resx">
-      <DependentUpon>201910172107274_helloWorld.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910181344533_init.resx">
+      <DependentUpon>201910181344533_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
