@@ -15,10 +15,6 @@ namespace dCC_GroupCapstone.Models
         public string Name { get; set; }
 
         public string PlaceId { get; set; }
-
-        public string Description { get; set; }
-
-        public double Price { get; set; }
         public ICollection<Vacation> Vacations { get; set; }
 
     }

@@ -3,7 +3,7 @@ namespace dCC_GroupCapstone.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class test : DbMigration
     {
         public override void Up()
         {
@@ -59,13 +59,10 @@ namespace dCC_GroupCapstone.Migrations
                         LastName = c.String(),
                         InterestsSerialized = c.String(),
                         UserId = c.String(maxLength: 128),
-                        Interest_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.Interests", t => t.Interest_Id)
-                .Index(t => t.UserId)
-                .Index(t => t.Interest_Id);
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -178,7 +175,6 @@ namespace dCC_GroupCapstone.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Ratings", "VacationId", "dbo.Vacations");
             DropForeignKey("dbo.Ratings", "CustomerId", "dbo.Customers");
-            DropForeignKey("dbo.Customers", "Interest_Id", "dbo.Interests");
             DropForeignKey("dbo.Customers", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -197,7 +193,6 @@ namespace dCC_GroupCapstone.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Customers", new[] { "Interest_Id" });
             DropIndex("dbo.Customers", new[] { "UserId" });
             DropIndex("dbo.Vacations", new[] { "Customer_Id" });
             DropIndex("dbo.Vacations", new[] { "SavedHotel" });

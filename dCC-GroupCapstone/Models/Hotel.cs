@@ -15,7 +15,6 @@ namespace dCC_GroupCapstone.Models
 
         public string PlaceId { get; set; }
         
-        public double Price { get; set; }
         
     }
 }
