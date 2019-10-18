@@ -71,12 +71,6 @@ namespace dCC_GroupCapstone.Controllers
             return RedirectToAction("Create", new { latLong = geocodedLocation });
         }
 
-        //GET
-        public ActionResult ChooseHotel(Vacation vacation)
-        {
-            return View();
-        }
-
         // GET: Vacation/Create
         public async Task<ActionResult> Create( string latLong )
         {
@@ -104,7 +98,6 @@ namespace dCC_GroupCapstone.Controllers
                             var hotel = new Hotel();
                             hotel.Name = result.name;
                             hotel.PlaceId = result.place_id;
-                            hotel.Price = result.price_level;
                             //hotel.GoogleRating = result.rating;
                             hotels.Add(hotel);
                         }
@@ -116,8 +109,6 @@ namespace dCC_GroupCapstone.Controllers
                             var activity = new Activity();
                             activity.Name = result.name;
                             activity.PlaceId = result.place_id;
-                            activity.Price = result.price_level;
-                            //activity.GoogleRating = result.rating;
                             activities.Add(activity);
                         }
                     }
