@@ -105,32 +105,45 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Vacation/Edit/5
         public ActionResult Edit(int id)
         {
+            var userId = User.Identity.GetUserId();
+            Customer currentCustomer = context.Customers.SingleOrDefault(c => c.UserId == userId);
             var vacationEdit = context.Vacations.Find(id);
-            return View(vacationEdit);
+
+            if (currentCustomer.Id == vacationEdit.CustomerCreated)
+            {
+                return View(vacationEdit);
+            }
+            else
+            {
+                int vacationId = CopyToNewUser(vacationEdit);
+                return RedirectToAction("Edit", "Vacations", new { id = vacationId });
+            }
+        }
+        public int CopyToNewUser(Vacation vacation)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = context.Customers.SingleOrDefault(u => u.UserId == currentUserId);
+            vacation.CustomerCreated = currentUser.Id;
+            var newVacation = context.Vacations.Add(vacation);
+            context.SaveChanges();
+            return newVacation.Id;
         }
 
         // POST: Vacation/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Vacation vacation)
+        public ActionResult Edit(int id, Vacation vacationCreated)
         {
+            var userId = User.Identity.GetUserId();
+            Customer currentCustomer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+            
             try
             {
                 var vacationInDb = context.Vacations.Find(id);
-                vacationInDb.VacationName = vacation.VacationName;
-                vacationInDb.SavedHotel = vacation.SavedHotel;
-                vacationInDb.LocationQueried = vacation.LocationQueried;
-                vacationInDb.Cost = vacation.Cost;
-                var userId = User.Identity.GetUserId();
+                vacationInDb.VacationName = vacationCreated.VacationName;
+                vacationInDb.SavedHotel = vacationCreated.SavedHotel;
+                vacationInDb.LocationQueried = vacationCreated.LocationQueried;
+                vacationInDb.Cost = vacationCreated.Cost;
                 vacationInDb.CustomerCreated = context.Customers.SingleOrDefault(c => c.UserId == userId).Id;
-                //if (vacationInDb != context.Vacations.Find(id))
-                //{
-                //    var ratings = context.Ratings.Where(r => r.VacationId == id);
-                //    foreach (Rating rating in ratings)
-                //    {
-                //        context.Ratings.Remove(rating);
-                //    }
-                //    context.SaveChanges();
-                //}
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -163,15 +176,6 @@ namespace dCC_GroupCapstone.Controllers
             }
         }
 
-        public ActionResult CopyToNewUser(Vacation vacation)
-        {
-            var currentUserId = User.Identity.GetUserId();
-            var currentUser = context.Customers.SingleOrDefault(u => u.UserId == currentUserId);
-            currentUser.SavedVacations.Add(vacation);
-            context.SaveChanges();
-            return RedirectToAction("Index", "Vacations");
-            
-        }
 
         // TODO
         // Methods
