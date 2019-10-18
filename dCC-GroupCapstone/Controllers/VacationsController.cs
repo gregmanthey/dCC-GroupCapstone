@@ -63,7 +63,7 @@ namespace dCC_GroupCapstone.Controllers
             return View();
         }
 
-
+        // POST
         [HttpPost]
         public async Task<ActionResult> StartCreate(string selectedLocation)
         {
