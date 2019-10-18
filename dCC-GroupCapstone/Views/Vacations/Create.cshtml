@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -56,24 +56,31 @@
             @Html.ValidationMessageFor(model => model.Item1.SavedHotel, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    @foreach (dCC_GroupCapstone.Models.Hotel hotel in Model.Item2)
-    {
+    <div class="row">
+        <div class="col-md-6 vacation-item" id="hotel-choice">
         <h3>Hotel Choices</h3>
-        <p>@hotel.Name</p>
-        <p>@hotel.Price</p>
-    }
-
-    @foreach (dCC_GroupCapstone.Models.Activity activity in Model.Item3)
-    {
-        <h3>Activity Choices</h3>
-        <p>@activity.Name</p>
-        <p>@activity.Price</p>
-    }
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
+            @foreach (dCC_GroupCapstone.Models.Hotel hotel in Model.Item2)
+            {
+                <p>@hotel.Name <a style="float:right;">Select Hotel</a></p>
+            }
+            </div>
+        </div>
+        <div class="col-md-6 vacation-item" id="activity-choice">
+            <h3>Activity Choices</h3>
+            <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
+            @foreach (dCC_GroupCapstone.Models.Activity activity in Model.Item3)
+            {
+                <p>@activity.Name <a style="float:right;">Add Activity</a></p>
+            }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
 </div>
