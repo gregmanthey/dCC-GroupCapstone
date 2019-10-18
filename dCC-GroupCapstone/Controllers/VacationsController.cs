@@ -56,14 +56,13 @@ namespace dCC_GroupCapstone.Controllers
             return View(context.Vacations.Where(v => v.Id == id).FirstOrDefault());
         }
 
-        // GET 
+        // GET LOCATION
         public ActionResult StartCreate()
         {
-            // API CALLS
             return View();
         }
 
-        // POST
+        // POST LOCATION
         [HttpPost]
         public async Task<ActionResult> StartCreate(Vacation vacation)
         {
@@ -181,11 +180,11 @@ namespace dCC_GroupCapstone.Controllers
             try
             {
                 var vacationInDb = context.Vacations.Find(id);
-                vacationInDb.VacationName = vacationCreated.VacationName;
-                vacationInDb.SavedHotel = vacationCreated.SavedHotel;
                 vacationInDb.LocationQueried = vacationCreated.LocationQueried;
+                vacationInDb.SavedHotel = vacationCreated.SavedHotel;
                 vacationInDb.Cost = vacationCreated.Cost;
                 vacationInDb.CustomerCreated = context.Customers.SingleOrDefault(c => c.UserId == userId).Id;
+                vacationInDb.VacationName = vacationCreated.VacationName;
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }

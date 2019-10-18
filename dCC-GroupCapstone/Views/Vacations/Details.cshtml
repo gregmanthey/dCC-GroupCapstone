@@ -9,56 +9,65 @@
 <div>
     <h4>Vacation</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.VacationName)
-        </dt>
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.VacationName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.VacationName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.VacationName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsPrivate)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsPrivate)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsPrivate)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.IsPrivate)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LocationQueried)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LocationQueried)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LocationQueried)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.LocationQueried)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Cost)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Cost)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SavedHotel)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SavedHotel)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SavedHotel)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.SavedHotel)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AverageRating)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AverageRating)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AverageRating)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.AverageRating)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <div id="map" style="height:400px;width:100%;">
+                Map will be here
+            </div>
+        </div>
+    </div>
 </div>
 <p>
     @if (User.Identity.IsAuthenticated)

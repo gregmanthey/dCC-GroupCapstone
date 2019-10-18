@@ -16,9 +16,9 @@ namespace dCC_GroupCapstone.Migrations
         {
             //  This method will be called after migrating to the latest version.
             context.Activities.AddOrUpdate(
-                new Models.Activity { Name = "Milwaukee Library", PlaceId = "ChIJTz4iYJ0ZBYgRVz0qCWmDuEY", Description = "Milwaukee Public Library", Price = 0.00 },
-                new Models.Activity { Name = "Milwaukee Museum", PlaceId = "ChIJ5Q1PzncZBYgR7fctbILQwVs", Description = "Milwaukee Museum", Price = 100.00 },
-                new Models.Activity { Name = "The Milwaukee Club", PlaceId = "ChIJw7B-9qcZBYgRAqvpoAMii-U", Description = "The club in Milwaukee", Price = 50 }
+                new Models.Activity { Name = "Milwaukee Library", PlaceId = "ChIJTz4iYJ0ZBYgRVz0qCWmDuEY"},
+                new Models.Activity { Name = "Milwaukee Museum", PlaceId = "ChIJ5Q1PzncZBYgR7fctbILQwVs"},
+                new Models.Activity { Name = "The Milwaukee Club", PlaceId = "ChIJw7B-9qcZBYgRAqvpoAMii-U"}
                 );
 
             context.Interests.AddOrUpdate(
@@ -29,8 +29,8 @@ namespace dCC_GroupCapstone.Migrations
                 );
 
             context.Hotels.AddOrUpdate(
-                new Models.Hotel { Name = "Milwaukee Hilton", PlaceId = "ChIJEyMHFJ4ZBYgR9m-Eb6B_fqw", Price = 100 },
-                new Models.Hotel { Name = "Hilton Garden Inn Milwaukee ", PlaceId = "ChIJq6qqqgYZBYgROBdo-2DxlNg", Price = 75}
+                new Models.Hotel { Name = "Milwaukee Hilton", PlaceId = "ChIJEyMHFJ4ZBYgR9m-Eb6B_fqw"},
+                new Models.Hotel { Name = "Hilton Garden Inn Milwaukee ", PlaceId = "ChIJq6qqqgYZBYgROBdo-2DxlNg"}
                 );
 
 
