@@ -5,7 +5,7 @@ using System.Web;
 
 namespace dCC_GroupCapstone
 {
-    public class GoogleJsonResults
+    public class GooglePlacesApiJson
     {
         public class Rootobject
         {
