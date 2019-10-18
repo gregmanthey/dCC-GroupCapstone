@@ -178,7 +178,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GoogleJsonResults.cs" />
+    <Compile Include="GooglePlacesApiJson.cs" />
+    <Compile Include="GoogleMapsApiJson.cs" />
     <Compile Include="Keys.cs" />
     <Compile Include="Migrations\201910172107274_helloWorld.cs" />
     <Compile Include="Migrations\201910172107274_helloWorld.Designer.cs">

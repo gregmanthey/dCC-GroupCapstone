@@ -65,20 +65,56 @@ namespace dCC_GroupCapstone.Controllers
 
 
         [HttpPost]
-        public ActionResult StartCreate(string selectedLocation)
+        public async Task<ActionResult> StartCreate(string selectedLocation)
         {
-            // API CALLS WITH selectedLocation => geocodedLocation
-            string geocodedLocation = "a";
+            string geocodedLocation = await GeocodeFromLocationToLatLongString(selectedLocation);
             return RedirectToAction("Create", new { latlong = geocodedLocation });
         }
 
         // GET: Vacation/Create
-        public ActionResult Create( string latlong)
+        public async Task<ActionResult> Create( string latLong )
         {
             // take latlong and put into lists of hotels/activities/bleh
+            var currentUserId = User.Identity.GetUserId();
+            var currentCustomer = context.Customers.SingleOrDefault(c => c.UserId == currentUserId);
+            var customerInterests = currentCustomer.Interests;
+            customerInterests.Add("Lodging");
+            var hotels = new List<Hotel>();
+            var activities = new List<Activity>();
+            foreach (var interest in customerInterests)
+            {
+                var listOfApiSearchTypes = GetPlacesApiTypeList(interest);
+                foreach (var searchType in listOfApiSearchTypes)
+                {
+                    var results = await PlacesTypeApiSearch(searchType, latLong);
+                    if (listOfApiSearchTypes == PlaceApiTypes.Lodging)
+                    {
+                        foreach (var result in results)
+                        {
+                            var hotel = new Hotel();
+                            hotel.Name = result.name;
+                            hotel.PlaceId = result.place_id;
+                            hotel.Price = result.price_level;
+                            //hotel.GoogleRating = result.rating;
+                            hotels.Add(hotel);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var result in results)
+                        {
+                            var activity = new Activity();
+                            activity.Name = result.name;
+                            activity.PlaceId = result.place_id;
+                            activity.Price = result.price_level;
+                            //activity.GoogleRating = result.rating;
+                            activities.Add(activity);
+                        }
+                    }
+                }
+            }
             Vacation vacation = new Vacation();
-            var hotels = context.Hotels.ToList();
-            var activities = context.Activities.ToList();
+            
             var tupleResult = new Tuple<Vacation, IEnumerable<Hotel>, IEnumerable<Activity>>(vacation, hotels, activities);
             return View(tupleResult);
         }
@@ -198,9 +234,9 @@ namespace dCC_GroupCapstone.Controllers
                     return null;
             }
         }
-        public async Task<List<GoogleJsonResults.Result>> LoopThroughPlaceTypes(List<string> types, string LatLong)
+        public async Task<List<GooglePlacesApiJson.Result>> LoopThroughPlaceTypes(List<string> types, string LatLong)
         {
-            var results = new List<GoogleJsonResults.Result>();
+            var results = new List<GooglePlacesApiJson.Result>();
             foreach (string item in types)
             {
                 var searchResults = await PlacesTypeApiSearch(item, LatLong);
@@ -209,14 +245,14 @@ namespace dCC_GroupCapstone.Controllers
             return results;
         }
 
-        public async Task<List<GoogleJsonResults.Result>> PlacesTypeApiSearch(string type, string LatLong)
+        public async Task<List<GooglePlacesApiJson.Result>> PlacesTypeApiSearch(string type, string LatLong)
         {
             var http = new HttpClient();
             var url = String.Format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={0}&radius=2000&type={1}&key={2}", LatLong, type, Keys.GoogleApiKey);
             var response = await http.GetAsync(url);
             var result = await response.Content.ReadAsStringAsync();
-            var jsonData = JsonConvert.DeserializeObject<GoogleJsonResults.Rootobject>(result);
-            var resultsList = new List<GoogleJsonResults.Result>();
+            var jsonData = JsonConvert.DeserializeObject<GooglePlacesApiJson.Rootobject>(result);
+            var resultsList = new List<GooglePlacesApiJson.Result>();
 
             for (int i = 0; i < jsonData.results.Count(); i++)
             {
@@ -224,6 +260,18 @@ namespace dCC_GroupCapstone.Controllers
             }
 
             return resultsList;
+        }
+
+        public async Task<string> GeocodeFromLocationToLatLongString(string location)
+        {
+            var http = new HttpClient();
+            var url = String.Format("https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}", location, Keys.GoogleApiKey);
+            var response = await http.GetAsync(url);
+            var result = await response.Content.ReadAsStringAsync();
+            var jsonData = JsonConvert.DeserializeObject<GoogleMapsApiJson.Rootobject>(result);
+            var latLong = jsonData.results[0].geometry.location.lat.ToString() + "," + jsonData.results[0].geometry.location.lng.ToString();
+
+            return latLong;
         }
         // Filter - lodging/other
         // Filter - include interests/don't
