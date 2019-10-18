@@ -11,80 +11,84 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Vacation</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Item1.VacationName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Item1.VacationName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Item1.VacationName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Item1.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.Item1.IsPrivate)
-                @Html.ValidationMessageFor(model => model.Item1.IsPrivate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Item1.LocationQueried, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Item1.LocationQueried, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Item1.LocationQueried, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Item1.Cost, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Item1.Cost, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Item1.Cost, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Item1.SavedHotel, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Item1.SavedHotel, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Item1.SavedHotel, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 vacation-item" id="hotel-choice">
-        <h3>Hotel Choices</h3>
-            <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
-            @foreach (dCC_GroupCapstone.Models.Hotel hotel in Model.Item2)
-            {
-                <p>@hotel.Name <a style="float:right;">Select Hotel</a></p>
-            }
-            </div>
-        </div>
-        <div class="col-md-6 vacation-item" id="activity-choice">
-            <h3>Activity Choices</h3>
-            <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
-            @foreach (dCC_GroupCapstone.Models.Activity activity in Model.Item3)
-            {
-                <p>@activity.Name <a style="float:right;">Add Activity</a></p>
-            }
-            </div>
-        </div>
-    </div>
-    <div class="row">
+    <div class="form-horizontal">
+        <h4>Vacation</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            @Html.LabelFor(model => model.Item1.VacationName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.VacationName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Item1.VacationName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Item1.IsPrivate)
+                    @Html.ValidationMessageFor(model => model.Item1.IsPrivate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.LocationQueried, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Item1.LocationQueried, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Item1.LocationQueried, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 vacation-item" id="hotel-choice">
+                <h3>Hotel Choices</h3>
+                <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
+                    <ul>
+                        @foreach (dCC_GroupCapstone.Models.Hotel hotel in Model.Item2)
+                        {
+                            <li><a onclick="addHotelToList(@hotel)">@hotel.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 vacation-item" id="activity-choice">
+                <h3>Activity Choices</h3>
+                <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
+                    <ul>
+                        @foreach (dCC_GroupCapstone.Models.Activity activity in Model.Item3)
+                        {
+                            <li><a onclick="addActivityToList(@activity)">@activity.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
+
+<script type="text/javascript">
+    function addActivityToList(activity) {
+        $('#activity-selection').append(
+            "<div class='col-md-10'>" +
+                @{Html.EditorFor(model => model.Item1.Activities);}
+            "</div>");
+    }
+    function addHotelToList(hotel) {
+        $('#activity-selection').append(
+            "<div class='col-md-10'>" +
+                @{Html.EditorFor(model => model.Item1.Hotel);}
+            "</div>");
+    }
+</script>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
