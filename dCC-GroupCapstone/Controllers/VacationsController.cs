@@ -17,7 +17,7 @@ using System.Data.Entity;
 namespace dCC_GroupCapstone.Controllers
 {
     public class VacationsController : Controller
-       
+
     {
         ApplicationDbContext context;
 
