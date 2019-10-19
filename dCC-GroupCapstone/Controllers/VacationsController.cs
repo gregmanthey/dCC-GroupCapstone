@@ -47,7 +47,7 @@ namespace dCC_GroupCapstone.Controllers
         public ActionResult TopIndex()
         {
             var userId = User.Identity.GetUserId();
-            var customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+            var customer = context.Customers.FirstOrDefault(c => c.UserId == userId);
             var vacations = context.Vacations.OrderByDescending(v => v.AverageRating).Where(v => v.IsPrivate == false || v.CustomerCreated == customer.Id).ToList();
             return View(vacations);
         }
@@ -130,6 +130,7 @@ namespace dCC_GroupCapstone.Controllers
         [HttpPost]
         public ActionResult Create(Vacation vacation)
         {
+            //{ "Id":0,"Name":"Hilton Milwaukee City Center","PlaceId":"ChIJEyMHFJ4ZBYgR9m-Eb6B_fqw","LatLong":"43.0385,-87.91779"}
             try
             {
                 var userId = User.Identity.GetUserId();
