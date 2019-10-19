@@ -181,6 +181,10 @@
     <Compile Include="GooglePlacesApiJson.cs" />
     <Compile Include="GoogleMapsApiJson.cs" />
     <Compile Include="Keys.cs" />
+    <Compile Include="Migrations\201910192009466_migration.cs" />
+    <Compile Include="Migrations\201910192009466_migration.Designer.cs">
+      <DependentUpon>201910192009466_migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -292,6 +296,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201910192009466_migration.resx">
+      <DependentUpon>201910192009466_migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

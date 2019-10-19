@@ -21,7 +21,6 @@ namespace dCC_GroupCapstone.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Interest> Interests { get; set; }
         public DbSet<Vacation> Vacations { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }

@@ -32,7 +32,7 @@ namespace dCC_GroupCapstone.Controllers
             var vacations = context.Vacations.ToList();
             var activities = context.Activities.ToList();
             var hotels = context.Hotels.ToList();
-            var tuple = new Tuple<IEnumerable<dCC_GroupCapstone.Models.Vacation>, IEnumerable<dCC_GroupCapstone.Models.Activity>, IEnumerable<dCC_GroupCapstone.Models.Hotel>>(vacations, activities, hotels);
+            var tuple = new Tuple<IEnumerable<Vacation>, IEnumerable<Activity>, IEnumerable<Hotel>>(vacations, activities, hotels);
             return View(tuple);
         }
 

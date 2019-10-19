@@ -21,13 +21,6 @@ namespace dCC_GroupCapstone.Migrations
                 new Models.Activity { Name = "The Milwaukee Club", PlaceId = "ChIJw7B-9qcZBYgRAqvpoAMii-U"}
                 );
 
-            context.Interests.AddOrUpdate(
-                new Models.Interest { Name = "Historical Landmarks" },
-                new Models.Interest { Name = "Hiking" },
-                new Models.Interest { Name = "Science"},
-                new Models.Interest { Name = "Religion"}
-                );
-
             context.Hotels.AddOrUpdate(
                 new Models.Hotel { Name = "Milwaukee Hilton", PlaceId = "ChIJEyMHFJ4ZBYgR9m-Eb6B_fqw"},
                 new Models.Hotel { Name = "Hilton Garden Inn Milwaukee ", PlaceId = "ChIJq6qqqgYZBYgROBdo-2DxlNg"}
