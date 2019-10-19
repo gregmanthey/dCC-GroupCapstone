@@ -181,10 +181,6 @@
     <Compile Include="GooglePlacesApiJson.cs" />
     <Compile Include="GoogleMapsApiJson.cs" />
     <Compile Include="Keys.cs" />
-    <Compile Include="Migrations\201910191705187_migration.cs" />
-    <Compile Include="Migrations\201910191705187_migration.Designer.cs">
-      <DependentUpon>201910191705187_migration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -192,7 +188,6 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Hotel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Interest.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Vacation.cs" />
@@ -297,11 +292,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910191705187_migration.resx">
-      <DependentUpon>201910191705187_migration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

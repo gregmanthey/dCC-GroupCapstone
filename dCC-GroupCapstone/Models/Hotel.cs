@@ -16,6 +16,5 @@ namespace dCC_GroupCapstone.Models
         public string PlaceId { get; set; }
         public string LatLong { get; set; }
         
-        
     }
 }
