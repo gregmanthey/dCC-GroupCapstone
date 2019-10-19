@@ -10,89 +10,130 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Vacation</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Item1.VacationName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.VacationName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Item1.VacationName, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4>Vacation</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Item1.VacationName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Item1.VacationName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Item1.VacationName, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Item1.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Item1.IsPrivate)
-                    @Html.ValidationMessageFor(model => model.Item1.IsPrivate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Item1.LocationQueried, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Item1.LocationQueried, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Item1.LocationQueried, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 vacation-item" id="hotel-choice">
-                <h3>Hotel Choices</h3>
-                <div id="hotel-selection"></div>
-                <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
-                    <ul>
-                        @foreach (var hotel in Model.Item2)
-                        {
-                            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                            <li><a onclick="addHotelToList(@serializer.Serialize(hotel))">@hotel.Name</a></li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-6 vacation-item" id="activity-choice">
-                <h3>Activity Choices</h3>
-                <div id="activity-selection"></div>
-                <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
-                    <ul>
-                        @foreach (var activity in Model.Item3)
-                        {
-                            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                            <li><a onclick="addActivityToList(@serializer.Serialize(activity))">@activity.Name</a></li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Item1.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Item1.IsPrivate)
+                @Html.ValidationMessageFor(model => model.Item1.IsPrivate, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Item1.LocationQueried, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Item1.LocationQueried, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Item1.LocationQueried, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Item1.SavedHotel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Item1.SavedHotel)
+                    @Html.ValidationMessageFor(model => model.Item1.SavedHotel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Item1.Activities, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Item1.Activities)
+                    @Html.ValidationMessageFor(model => model.Item1.Activities, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+<div class="form-group">
+    <label for="Activities" class="control-label col-md-2">Activities Selected</label>
+    <input type="text" name="Activities" id="activity-select" value="" />
+    @Html.ValidationMessageFor(model => model.Item1.Activities)
+</div>
+
+    <div class="form-group">
+        <label for="SavedHotel" class="control-label col-md-2">Hotel Selected</label>
+        <input type="text" name="Hotel" id="hotel-select" class="" value="" />
+        @Html.ValidationMessageFor(model => model.Item1.Activities)
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 vacation-item" id="hotel-choice">
+            <h3>Hotel Choices</h3>
+            <div id="hotel-selection"></div>
+            <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
+                <ul>
+                    @foreach (var hotel in Model.Item2)
+                    {
+                        var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                        <li><a onclick="addHotelToList(@serializer.Serialize(hotel))">@hotel.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 vacation-item" id="activity-choice">
+            <h3>Activity Choices</h3>
+            <div id="activity-selection"></div>
+            <div style="max-height:500px;overflow-y:scroll;overflow-x:hidden;">
+                <ul>
+                    @foreach (var activity in Model.Item3)
+                    {
+                        var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                        <li><a onclick="addActivityToList(@serializer.Serialize(activity))">@activity.Name</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</div>
 }
 
 <script type="text/javascript">
     function addActivityToList(activity) {
-        $('#activity-selection').append(
-            "<div>" +
-            activity["Name"] + " " +
-            activity["PlaceId"] + " " +
-            "</div>");
+        //$('#activity-selection').append(
+        //    "<div>" +
+        //    activity["Name"] + " " +
+        //    activity["PlaceId"] + " " +
+        //    "</div>");
+        $('#activity-select').attr({
+            "value": $('#activity-select').val() + JSON.stringify(activity) + ", "
+        });
     }
 
     function addHotelToList(hotel) {
-        $('#hotel-selection').html(
-            "<div>" +
-            hotel["Name"] + " " +
-            hotel["PlaceId"] + " " +
-            "</div>");
+        //$('#hotel-selection').html(
+            //"<div>" +
+            //hotel["Name"] + " " +
+            //hotel["PlaceId"] + " " +
+            //"</div>");
+            //"<div>" +
+            //JSON.stringify(hotel) +
+            //"</div>");
+        $('#hotel-select').attr({
+            "value": JSON.stringify(hotel)
+        })
     }
 </script>
 
