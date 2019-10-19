@@ -330,5 +330,5 @@ ASALocalRun/
 .mfractor/
 
 Keys.cs
-Migrations/*
-!Migrations/Configuration.cs
+*/Migrations/*
+!*/Migrations/Configuration.cs

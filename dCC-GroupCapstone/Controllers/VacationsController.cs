@@ -32,7 +32,7 @@ namespace dCC_GroupCapstone.Controllers
             var vacations = context.Vacations.ToList();
             var activities = context.Activities.ToList();
             var hotels = context.Hotels.ToList();
-            var tuple = Tuple.Create(vacations, activities, hotels);
+            var tuple = new Tuple<IEnumerable<dCC_GroupCapstone.Models.Vacation>, IEnumerable<dCC_GroupCapstone.Models.Activity>, IEnumerable<dCC_GroupCapstone.Models.Hotel>>(vacations, activities, hotels);
             return View(tuple);
         }
 
@@ -98,7 +98,7 @@ namespace dCC_GroupCapstone.Controllers
                             var hotel = new Hotel();
                             hotel.Name = result.name;
                             hotel.PlaceId = result.place_id;
-                            hotel.Price = result.price_level;
+                            //hotel.Price = result.price_level;
                             hotel.LatLong = result.geometry.location.lat.ToString() + "," + result.geometry.location.lng.ToString();
                             //hotel.GoogleRating = result.rating;
                             hotels.Add(hotel);
@@ -111,7 +111,7 @@ namespace dCC_GroupCapstone.Controllers
                             var activity = new Activity();
                             activity.Name = result.name;
                             activity.PlaceId = result.place_id;
-                            activity.Price = result.price_level;
+                            //activity.Price = result.price_level;
                             activity.LatLong = result.geometry.location.lat.ToString() + "," + result.geometry.location.lng.ToString();
                             //activity.GoogleRating = result.rating;
                             activities.Add(activity);
