@@ -52,7 +52,9 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Vacation/Details/5
         public ActionResult Details(int id)
         {
-            return View(context.Vacations.Where(v => v.Id == id).FirstOrDefault());
+            var foundVacation = context.Vacations.Where(v => v.Id == id).FirstOrDefault();
+            ViewBag.GoogleImg = GenerateStaticMapUrlForVacation(foundVacation);
+            return View(foundVacation);
         }
 
         // GET LOCATION
@@ -309,13 +311,13 @@ namespace dCC_GroupCapstone.Controllers
         {
             var url = new StringBuilder();
             url.Append("https://maps.googleapis.com/maps/api/staticmap?");
-            url.Append("size=600x600&maptype=hybrid&markers=color:blue|label:A|");
+            url.Append("size=600x600&markers=color:green|label:A|");
             //var activities = context.Activities.Where(a => a.Id == vacation.Activities.).ToList();
             if (vacation.Activities != null)
             {
                 foreach (var activity in vacation.Activities)
                 {
-                    var activityLocation = context.Activities.FirstOrDefault(a => a.Id == activity.Id).LatLong;
+                    var activityLocation = activity.LatLong;
                     url.Append($"{activityLocation}|");
                 }
             }
@@ -324,7 +326,7 @@ namespace dCC_GroupCapstone.Controllers
             {
                 foreach (var hotel in vacation.Hotels)
                 {
-                    var hotelLocation = context.Hotels.FirstOrDefault(h => h.Id == hotel.Id).LatLong;
+                    var hotelLocation = hotel.LatLong;
                     url.Append($"{hotelLocation}|");
                 }
             }
