@@ -257,7 +257,6 @@
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Vacations\Index.cshtml" />
     <Content Include="Views\Vacations\Create.cshtml" />
     <Content Include="Views\Vacations\Edit.cshtml" />

@@ -18,7 +18,9 @@ namespace dCC_GroupCapstone.Controllers
         // GET: Customer
         public ActionResult Index()
         {
-            return View(context.Customers.ToList());
+            var userId = User.Identity.GetUserId();
+            var customerId = context.Customers.FirstOrDefault(c => c.UserId == userId).Id;
+            return RedirectToAction("Details", new { id = customerId });
         }
 
         // GET: Customer/Details/5
@@ -79,6 +81,7 @@ namespace dCC_GroupCapstone.Controllers
                 var editCustomer = context.Customers.Find(id);
                 editCustomer.FirstName = customer.FirstName;
                 editCustomer.LastName = customer.LastName;
+                editCustomer.Interests = customer.Interests;
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
