@@ -37,11 +37,25 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.SavedHotel)
+                    @Html.DisplayNameFor(model => model.Hotels)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.SavedHotel)
+                    @foreach (var hotel in Model.Hotels)
+                    {
+                        @Html.DisplayFor(model => hotel.Name)<br/>
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Activities)
+                </dt>
+
+                <dd>
+                    @foreach (var activity in Model.Activities)
+                    {
+                        @Html.DisplayFor(model => activity.Name)<br />
+                    }
                 </dd>
 
                 <dt>

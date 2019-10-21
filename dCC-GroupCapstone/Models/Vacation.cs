@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,12 +22,34 @@ namespace dCC_GroupCapstone.Models
         public string LatLong { get; set; }
         public int CustomerCreated { get; set; }
         public double Cost { get; set; }
-        [ForeignKey("Hotel")]
-        [Display(Name = "Hotel Name")]
-        public int SavedHotel { get; set; }
-        public Hotel Hotel { get; set; }
+
         [Display(Name = "Rating")]
         public double AverageRating { get; set; }
-        public ICollection<Activity> Activities { get; set; }
+        public List<Activity> Activities
+        {
+            get { return _Activities; }
+            set { _Activities = value; }
+        }
+
+        private List<Activity> _Activities;
+
+        public string ActivitiesSerialized
+        {
+            get { return JsonConvert.SerializeObject(_Activities); }
+            set { _Activities = JsonConvert.DeserializeObject<List<Activity>>(value); }
+        }
+        public List<Hotel> Hotels
+        {
+            get { return _Hotels; }
+            set { _Hotels = value; }
+        }
+
+        private List<Hotel> _Hotels;
+
+        public string HotelsSerialized
+        {
+            get { return JsonConvert.SerializeObject(_Hotels); }
+            set { _Hotels = JsonConvert.DeserializeObject<List<Hotel>>(value); }
+        }
     }
 }

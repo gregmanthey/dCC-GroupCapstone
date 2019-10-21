@@ -30,10 +30,7 @@ namespace dCC_GroupCapstone.Controllers
         {
             var userId = User.Identity.GetUserId();
             var vacations = context.Vacations.Where(v => v.IsPrivate == false).ToList();
-            var activities = context.Activities.ToList();
-            var hotels = context.Hotels.ToList();
-            var tuple = new Tuple<IEnumerable<Vacation>, IEnumerable<Activity>, IEnumerable<Hotel>>(vacations, activities, hotels);
-            return View(tuple);
+            return View(vacations);
         }
 
         public ActionResult UserIndex()
@@ -84,9 +81,11 @@ namespace dCC_GroupCapstone.Controllers
             {
                 customerInterests = new List<string>();
             }
-            customerInterests.Add("Lodging");
-            var hotels = new List<Hotel>();
-            var activities = new List<Activity>();
+            customerInterests.Add("Lodging"); //for hotels
+            
+            Vacation vacation = new Vacation() { LocationQueried = locationName, VacationName = "My New Vacation" };
+            vacation.Hotels = new List<Hotel>();
+            vacation.Activities = new List<Activity>();
             foreach (var interest in customerInterests)
             {
                 var listOfApiSearchTypes = GetPlacesApiTypeList(interest);
@@ -103,7 +102,7 @@ namespace dCC_GroupCapstone.Controllers
                             //hotel.Price = result.price_level;
                             hotel.LatLong = result.geometry.location.lat.ToString() + "," + result.geometry.location.lng.ToString();
                             //hotel.GoogleRating = result.rating;
-                            hotels.Add(hotel);
+                            vacation.Hotels.Add(hotel);
                         }
                     }
                     else
@@ -116,33 +115,53 @@ namespace dCC_GroupCapstone.Controllers
                             //activity.Price = result.price_level;
                             activity.LatLong = result.geometry.location.lat.ToString() + "," + result.geometry.location.lng.ToString();
                             //activity.GoogleRating = result.rating;
-                            activities.Add(activity);
+                            vacation.Activities.Add(activity);
                         }
                     }
                 }
             }
-            Vacation vacation = new Vacation() { LocationQueried = locationName, VacationName = "My New Vacation"};
-            var tupleResult = new Tuple<Vacation, IEnumerable<Hotel>, IEnumerable<Activity>>(vacation, hotels, activities);
-            return View(tupleResult);
+            
+            
+            //var tupleResult = new Tuple<Vacation, IEnumerable<Hotel>, IEnumerable<Activity>>(vacation, hotels, activities);
+            return View(vacation);
         }
 
         // POST: Vacation/Create
         [HttpPost]
         public ActionResult Create(Vacation vacation)
         {
-            //{ "Id":0,"Name":"Hilton Milwaukee City Center","PlaceId":"ChIJEyMHFJ4ZBYgR9m-Eb6B_fqw","LatLong":"43.0385,-87.91779"}
             try
             {
                 var userId = User.Identity.GetUserId();
-                var customer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+                var customer = context.Customers.FirstOrDefault(c => c.UserId == userId);
                 vacation.CustomerCreated = customer.Id;
+                var chosenHotels = vacation.Hotels.Where(h => h.Checked == true).ToList();
+                vacation.Hotels = chosenHotels;
+                if (chosenHotels != null)
+                {
+                    foreach (var hotel in chosenHotels)
+                    {
+                        context.Hotels.Add(hotel);
+                    }
+                }
+
+                var chosenActivities = vacation.Activities.Where(a => a.Checked == true).ToList();
+                vacation.Activities = chosenActivities;
+                if (vacation.Activities != null)
+                {
+                    foreach (var activity in vacation.Activities)
+                    {
+                        context.Activities.Add(activity);
+                    }
+                }
+                
                 context.Vacations.Add(vacation);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(vacation.LatLong, vacation.LocationQueried);
             }
         }
 
@@ -178,15 +197,15 @@ namespace dCC_GroupCapstone.Controllers
         public ActionResult Edit(int id, Vacation vacationCreated)
         {
             var userId = User.Identity.GetUserId();
-            Customer currentCustomer = context.Customers.SingleOrDefault(c => c.UserId == userId);
+            Customer currentCustomer = context.Customers.FirstOrDefault(c => c.UserId == userId);
             
             try
             {
                 var vacationInDb = context.Vacations.Find(id);
                 vacationInDb.LocationQueried = vacationCreated.LocationQueried;
-                vacationInDb.SavedHotel = vacationCreated.SavedHotel;
+                //vacationInDb.SavedHotel = vacationCreated.SavedHotel;
                 vacationInDb.Cost = vacationCreated.Cost;
-                vacationInDb.CustomerCreated = context.Customers.SingleOrDefault(c => c.UserId == userId).Id;
+                vacationInDb.CustomerCreated = context.Customers.FirstOrDefault(c => c.UserId == userId).Id;
                 vacationInDb.VacationName = vacationCreated.VacationName;
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -300,10 +319,18 @@ namespace dCC_GroupCapstone.Controllers
                     url.Append($"{activityLocation}|");
                 }
             }
+            url.Append($"&markers=color:orange|label:H|");
+            if (vacation.Hotels != null)
+            {
+                foreach (var hotel in vacation.Hotels)
+                {
+                    var hotelLocation = context.Hotels.FirstOrDefault(h => h.Id == hotel.Id).LatLong;
+                    url.Append($"{hotelLocation}|");
+                }
+            }
             
-            var hotelLocation = context.Hotels.FirstOrDefault(h => h.Id == vacation.SavedHotel).LatLong;
-            url.Append($"&markers=color:orange|label:H|{hotelLocation}&");
-            url.Append("key=" + Keys.GoogleApiKey);
+            
+            url.Append("&key=" + Keys.GoogleApiKey);
             return url.ToString();
         }
         //https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=YOUR_API_KEY

@@ -17,22 +17,34 @@ namespace dCC_GroupCapstone.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Display(Name = "Interests")]
-        public virtual ICollection<string> Interests
+        public virtual List<string> Interests
         {
             get { return _Interests; }
             set { _Interests = value; }
         }
 
-        private ICollection<string> _Interests;
+        private List<string> _Interests;
 
         public string InterestsSerialized
         {
             get { return JsonConvert.SerializeObject(_Interests); }
-            set { _Interests = JsonConvert.DeserializeObject<ICollection<string>>(value); }
+            set { _Interests = JsonConvert.DeserializeObject<List<string>>(value); }
         }
 
         [Display(Name = "Saved Vacations")]
-        public ICollection<Vacation> SavedVacations { get; set; }
+        public List<Vacation> SavedVacations
+        {
+            get { return _SavedVacations; }
+            set { _SavedVacations = value; }
+        }
+
+        private List<Vacation> _SavedVacations;
+
+        public string SavedVacationsSerialized
+        {
+            get { return JsonConvert.SerializeObject(_SavedVacations); }
+            set { _SavedVacations = JsonConvert.DeserializeObject<List<Vacation>>(value); }
+        }
 
         [ForeignKey("User")]
         public string UserId { get; set; }

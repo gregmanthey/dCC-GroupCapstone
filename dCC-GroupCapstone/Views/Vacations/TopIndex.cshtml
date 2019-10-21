@@ -21,7 +21,10 @@
             @Html.DisplayNameFor(model => model.Cost)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SavedHotel)
+            @Html.DisplayNameFor(model => model.Hotels)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activities)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AverageRating)
@@ -30,37 +33,37 @@
     </tr>
 
     @*@foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VacationName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LocationQueried)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SavedHotel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AverageRating)
-            </td>
-            <td>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) @:|
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                }
-                else
-                {
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
-                }
-            </td>
-        </tr>
-    }*@
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VacationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationQueried)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SavedHotel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AverageRating)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    }
+                </td>
+            </tr>
+        }*@
 
     @foreach (var item in Model)
     {
@@ -75,7 +78,16 @@
                 @Html.DisplayFor(modelItem => item.Cost)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SavedHotel)
+                @foreach (var hotel in item.Hotels)
+                {
+                    @Html.DisplayFor(modelItem => hotel.Name)<br />
+                }
+            </td>
+            <td>
+                @foreach (var activity in item.Activities)
+                {
+                    @Html.DisplayFor(modelItem => activity.Name)<br />
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AverageRating)

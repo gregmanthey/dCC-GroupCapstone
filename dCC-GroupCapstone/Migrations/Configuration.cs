@@ -32,10 +32,10 @@ namespace dCC_GroupCapstone.Migrations
                 new Models.Customer { FirstName = "Greg", LastName = "Manthey"}
                 );
 
-            context.Vacations.AddOrUpdate(
-                new Models.Vacation { VacationName = "Vacation One", IsPrivate = false, LocationQueried = "Milwaukee", Cost = 200, SavedHotel = 1},
-                new Models.Vacation { VacationName = "Vacation Two", IsPrivate = false, LocationQueried = "Milwaukee", Cost = 400, SavedHotel = 2}
-                );
+            //context.Vacations.AddOrUpdate(
+            //    new Models.Vacation { VacationName = "Vacation One", IsPrivate = false, LocationQueried = "Milwaukee", Cost = 200, SavedHotel = 1},
+            //    new Models.Vacation { VacationName = "Vacation Two", IsPrivate = false, LocationQueried = "Milwaukee", Cost = 400, SavedHotel = 2}
+            //    );
             
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.

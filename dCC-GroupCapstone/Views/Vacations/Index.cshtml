@@ -1,4 +1,4 @@
-﻿@model Tuple<IEnumerable<dCC_GroupCapstone.Models.Vacation>, IEnumerable<dCC_GroupCapstone.Models.Activity>, IEnumerable<dCC_GroupCapstone.Models.Hotel>>
+﻿@model List<dCC_GroupCapstone.Models.Vacation>
 
 @{
     ViewBag.Title = "Index";
@@ -12,53 +12,66 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().VacationName)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().VacationName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().LocationQueried)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().LocationQueried)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Cost)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Cost)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().SavedHotel)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Hotels)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().AverageRating)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Activities)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().AverageRating)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model.Item1) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.VacationName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LocationQueried)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Cost)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => Model.Item3.FirstOrDefault(h => h.Id == item.SavedHotel).Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.AverageRating)
-    </td>
-    <td>         
-        @if (User.Identity.IsAuthenticated)
-        {
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) @:|
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        }
-        else
-        {
-            @Html.ActionLink("Details", "Details", new { id = item.Id })  
-        }
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VacationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationQueried)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @foreach (var hotel in item.Hotels)
+                {
+                    @Html.DisplayFor(modelItem => hotel.Name)<br />
+                }
+            </td>
+            <td>
+                @foreach (var activity in item.Activities)
+                {
+                    @Html.DisplayFor(modelItem => activity.Name)<br />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageRating)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) @:|
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) @:|
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+                else
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

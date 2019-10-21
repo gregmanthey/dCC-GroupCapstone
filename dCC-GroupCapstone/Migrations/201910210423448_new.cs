@@ -3,7 +3,7 @@ namespace dCC_GroupCapstone.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class _new : DbMigration
     {
         public override void Up()
         {
@@ -15,8 +15,27 @@ namespace dCC_GroupCapstone.Migrations
                         Name = c.String(),
                         PlaceId = c.String(),
                         LatLong = c.String(),
+                        Checked = c.Boolean(nullable: false),
+                        Vacation_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Vacations", t => t.Vacation_Id)
+                .Index(t => t.Vacation_Id);
+            
+            CreateTable(
+                "dbo.Customers",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        FirstName = c.String(),
+                        LastName = c.String(),
+                        InterestsSerialized = c.String(),
+                        SavedVacationsSerialized = c.String(),
+                        UserId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.Vacations",
@@ -29,14 +48,13 @@ namespace dCC_GroupCapstone.Migrations
                         LatLong = c.String(),
                         CustomerCreated = c.Int(nullable: false),
                         Cost = c.Double(nullable: false),
-                        SavedHotel = c.Int(nullable: false),
                         AverageRating = c.Double(nullable: false),
+                        ActivitiesSerialized = c.String(),
+                        HotelsSerialized = c.String(),
                         Customer_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Hotels", t => t.SavedHotel, cascadeDelete: true)
                 .ForeignKey("dbo.Customers", t => t.Customer_Id)
-                .Index(t => t.SavedHotel)
                 .Index(t => t.Customer_Id);
             
             CreateTable(
@@ -47,22 +65,12 @@ namespace dCC_GroupCapstone.Migrations
                         Name = c.String(),
                         PlaceId = c.String(),
                         LatLong = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Customers",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        InterestsSerialized = c.String(),
-                        UserId = c.String(maxLength: 128),
+                        Checked = c.Boolean(nullable: false),
+                        Vacation_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .Index(t => t.UserId);
+                .ForeignKey("dbo.Vacations", t => t.Vacation_Id)
+                .Index(t => t.Vacation_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -146,19 +154,6 @@ namespace dCC_GroupCapstone.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
-            CreateTable(
-                "dbo.VacationActivities",
-                c => new
-                    {
-                        Vacation_Id = c.Int(nullable: false),
-                        Activity_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Vacation_Id, t.Activity_Id })
-                .ForeignKey("dbo.Vacations", t => t.Vacation_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Activities", t => t.Activity_Id, cascadeDelete: true)
-                .Index(t => t.Vacation_Id)
-                .Index(t => t.Activity_Id);
-            
         }
         
         public override void Down()
@@ -171,11 +166,8 @@ namespace dCC_GroupCapstone.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Vacations", "Customer_Id", "dbo.Customers");
-            DropForeignKey("dbo.Vacations", "SavedHotel", "dbo.Hotels");
-            DropForeignKey("dbo.VacationActivities", "Activity_Id", "dbo.Activities");
-            DropForeignKey("dbo.VacationActivities", "Vacation_Id", "dbo.Vacations");
-            DropIndex("dbo.VacationActivities", new[] { "Activity_Id" });
-            DropIndex("dbo.VacationActivities", new[] { "Vacation_Id" });
+            DropForeignKey("dbo.Hotels", "Vacation_Id", "dbo.Vacations");
+            DropForeignKey("dbo.Activities", "Vacation_Id", "dbo.Vacations");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Ratings", new[] { "VacationId" });
             DropIndex("dbo.Ratings", new[] { "CustomerId" });
@@ -184,19 +176,19 @@ namespace dCC_GroupCapstone.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Customers", new[] { "UserId" });
+            DropIndex("dbo.Hotels", new[] { "Vacation_Id" });
             DropIndex("dbo.Vacations", new[] { "Customer_Id" });
-            DropIndex("dbo.Vacations", new[] { "SavedHotel" });
-            DropTable("dbo.VacationActivities");
+            DropIndex("dbo.Customers", new[] { "UserId" });
+            DropIndex("dbo.Activities", new[] { "Vacation_Id" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Ratings");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Customers");
             DropTable("dbo.Hotels");
             DropTable("dbo.Vacations");
+            DropTable("dbo.Customers");
             DropTable("dbo.Activities");
         }
     }
