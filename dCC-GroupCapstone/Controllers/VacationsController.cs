@@ -159,11 +159,11 @@ namespace dCC_GroupCapstone.Controllers
                 
                 context.Vacations.Add(vacation);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("UserIndex");
             }
             catch
             {
-                return View(vacation.LatLong, vacation.LocationQueried);
+                return RedirectToAction("StartCreate");
             }
         }
 
